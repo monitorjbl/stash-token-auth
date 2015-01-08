@@ -20,7 +20,7 @@ AJS.toInit(function () {
 
     function populateForm() {
         $.ajax({
-            url: baseUrl + "/rest/auth-token-admin/1.0/",
+            url: baseUrl + "/rest/auth-token/1.0/admin",
             dataType: "json",
             success: function (config) {
                 $("#ttl").attr("value", config.ttl);
@@ -31,7 +31,7 @@ AJS.toInit(function () {
 
     function updateConfig() {
         $.ajax({
-            url: baseUrl + "/rest/auth-token-admin/1.0/",
+            url: baseUrl + "/rest/auth-token/1.0/admin",
             type: "PUT",
             contentType: "application/json",
             data: JSON.stringify($('#admin').serializeObject()),

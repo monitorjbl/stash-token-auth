@@ -1,4 +1,4 @@
-package com.thundermoose.plugins.tokenauth;
+package com.thundermoose.plugins;
 
 import com.atlassian.stash.auth.HttpAuthenticationContext;
 import com.atlassian.stash.auth.HttpAuthenticationHandler;

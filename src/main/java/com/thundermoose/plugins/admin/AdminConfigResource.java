@@ -1,4 +1,4 @@
-package com.thundermoose.plugins.tokenauth;
+package com.thundermoose.plugins.admin;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
@@ -19,8 +19,9 @@ import com.atlassian.sal.api.user.UserManager;
 import com.atlassian.sal.api.user.UserProfile;
 import org.apache.commons.lang3.BooleanUtils;
 
-@Path("/")
+@Path("/admin")
 public class AdminConfigResource {
+  public static final String BASE = AdminConfigResource.class.getName();
   private final UserManager userManager;
   private final PluginSettingsFactory pluginSettingsFactory;
   private final TransactionTemplate transactionTemplate;
@@ -44,8 +45,12 @@ public class AdminConfigResource {
       public Object doInTransaction() {
         PluginSettings settings = pluginSettingsFactory.createGlobalSettings();
         AdminConfig config = new AdminConfig();
-        config.setEnabled(BooleanUtils.toBoolean((String) settings.get(AdminConfigResource.class.getName() + ".enabled")));
-        config.setTtl(Integer.valueOf((String) settings.get(AdminConfigResource.class.getName() + ".ttl")));
+        config.setEnabled(BooleanUtils.toBoolean((String) settings.get(BASE + ".enabled")));
+        config.setKey((String) settings.get(BASE + ".key"));
+        String ttl = (String) settings.get(BASE + ".ttl");
+        if (ttl != null) {
+          config.setTtl(Integer.valueOf(ttl));
+        }
         return config;
       }
     })).build();
@@ -62,8 +67,9 @@ public class AdminConfigResource {
     transactionTemplate.execute(new TransactionCallback() {
       public Object doInTransaction() {
         PluginSettings settings = pluginSettingsFactory.createGlobalSettings();
-        settings.put(AdminConfigResource.class.getName() + ".enabled", BooleanUtils.toStringTrueFalse(config.getEnabled()));
-        settings.put(AdminConfigResource.class.getName() + ".ttl", Integer.toString(config.getTtl()));
+        settings.put(BASE + ".enabled", BooleanUtils.toStringTrueFalse(config.getEnabled()));
+        settings.put(BASE + ".ttl", Integer.toString(config.getTtl()));
+        settings.put(BASE + ".key", config.getKey());
         return null;
       }
     });

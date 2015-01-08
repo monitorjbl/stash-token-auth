@@ -9,33 +9,48 @@
 
   <component-import key="i18nService" interface="com.atlassian.stash.i18n.I18nService"/>
   <component-import key="userService" interface="com.atlassian.stash.user.UserService"/>
-  <component-import key="applicationProperties" interface="com.atlassian.sal.api.ApplicationProperties" />
-  <component-import key="userManager" interface="com.atlassian.sal.api.user.UserManager" />
-  <component-import key="loginUriProvider" interface="com.atlassian.sal.api.auth.LoginUriProvider" />
-  <component-import key="renderer" interface="com.atlassian.templaterenderer.velocity.one.six.VelocityTemplateRenderer" />
-  <component-import key="pluginSettingsFactory" interface="com.atlassian.sal.api.pluginsettings.PluginSettingsFactory" />
-  <component-import key="transactionTemplate" interface="com.atlassian.sal.api.transaction.TransactionTemplate" />
+  <component-import key="applicationProperties" interface="com.atlassian.sal.api.ApplicationProperties"/>
+  <component-import key="userManager" interface="com.atlassian.sal.api.user.UserManager"/>
+  <component-import key="loginUriProvider" interface="com.atlassian.sal.api.auth.LoginUriProvider"/>
+  <component-import key="renderer" interface="com.atlassian.templaterenderer.velocity.one.six.VelocityTemplateRenderer"/>
+  <component-import key="pluginSettingsFactory" interface="com.atlassian.sal.api.pluginsettings.PluginSettingsFactory"/>
+  <component-import key="transactionTemplate" interface="com.atlassian.sal.api.transaction.TransactionTemplate"/>
 
-  <resource type="i18n" name="i18n" location="com.thundermoose.plugins.tokenauth.i18n" />
+  <component key="servletUtils" class="com.thundermoose.plugins.utils.ServletUtils"/>
+
+  <resource type="i18n" name="i18n" location="com.thundermoose.plugins.tokenauth.i18n"/>
   <web-resource name="Admin Web Resources" key="resources">
     <dependency>com.atlassian.auiplugin:ajs</dependency>
     <resource type="download" name="admin.js" location="admin.js"/>
+    <resource type="download" name="user.js" location="user.js"/>
   </web-resource>
 
   <template-context-item key="applicationPropertiesContextItem" component-ref="applicationProperties"
                          context-key="applicationProperties" name="Application Properties Context Item"/>
 
-  <servlet key="admin-servlet" class="com.thundermoose.plugins.tokenauth.AdminConfigServlet">
+  <servlet key="admin-servlet" class="com.thundermoose.plugins.admin.AdminConfigServlet">
     <url-pattern>/auth-token/admin</url-pattern>
+  </servlet>
+  <servlet key="keygen-servlet" class="com.thundermoose.plugins.admin.KeygenServlet">
+    <url-pattern>/auth-token/keygen</url-pattern>
+  </servlet>
+  <servlet key="user-servlet" class="com.thundermoose.plugins.user.UserConfigServlet">
+    <url-pattern>/auth-token/user</url-pattern>
   </servlet>
 
   <http-auth-handler key="containerAuthenticationHandler"
-                     class="com.thundermoose.plugins.tokenauth.TokenAuthenticationHandler"
+                     class="com.thundermoose.plugins.TokenAuthenticationHandler"
                      captcha-support="false"
                      weight="100"/>
 
-  <rest key="rest" path="/auth-token-admin" version="1.0">
+  <rest key="rest" path="/auth-token" version="1.0">
     <description>Provides REST resources for the admin UI.</description>
   </rest>
+
+  <web-item key="account-plugin-tab" name="Account navigation tab" section="stash.user.account.nav" weight="100">
+    <label>Token</label>
+    <link>/plugins/servlet/auth-token/user</link>
+    <tooltip>Token-based Authentication</tooltip>
+  </web-item>
 
 </atlassian-plugin>

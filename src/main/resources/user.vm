@@ -1,0 +1,18 @@
+<html>
+  <head>
+    <title>$i18n.getText("user.title")</title>
+    <meta name="decorator" content="stash.users.account" />
+    $webResourceManager.requireResource("com.thundermoose.plugins.stash-token-auth:resources")
+    <meta name="application-base-url" content="$applicationProperties.getBaseUrl()">
+  </head>
+  <body>
+    <h2>$i18n.getText("user.label")</h2>
+    <form id="user" class="aui">
+      <div class="field-group">
+        <label for="ttl">$i18n.getText("user.token.label")</label>
+        <textarea class="textarea" type="text" id="token" name="token" rows="12" disabled></textarea>
+        <div class="description">$i18n.getText("user.token.description")</div>
+      </div>
+    </form>
+  </body>
+</html>

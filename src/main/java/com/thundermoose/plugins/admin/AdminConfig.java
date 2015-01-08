@@ -1,4 +1,4 @@
-package com.thundermoose.plugins.tokenauth;
+package com.thundermoose.plugins.admin;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -10,7 +10,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class AdminConfig {
   @XmlElement
   private Boolean enabled = false;
+  @XmlElement
   private Integer ttl = 30;
+  @XmlElement
+  private String key;
 
   public Boolean getEnabled() {
     return enabled;
@@ -26,5 +29,13 @@ public class AdminConfig {
 
   public void setTtl(Integer ttl) {
     this.ttl = ttl;
+  }
+
+  public String getKey() {
+    return key;
+  }
+
+  public void setKey(String key) {
+    this.key = key;
   }
 }
