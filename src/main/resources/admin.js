@@ -1,11 +1,11 @@
-AJS.toInit(function() {
+AJS.toInit(function () {
     var $ = AJS.$;
     var baseUrl = $("meta[name='application-base-url']").attr("content");
 
-    $.fn.serializeObject = function() {
+    $.fn.serializeObject = function () {
         var o = {};
         var a = this.serializeArray();
-        $.each(a, function() {
+        $.each(a, function () {
             if (o[this.name] !== undefined) {
                 if (!o[this.name].push) {
                     o[this.name] = [o[this.name]];
@@ -22,9 +22,9 @@ AJS.toInit(function() {
         $.ajax({
             url: baseUrl + "/rest/auth-token-admin/1.0/",
             dataType: "json",
-            success: function(config) {
-                $("#name").attr("value", config.name);
-                $("#time").attr("value", config.time);
+            success: function (config) {
+                $("#ttl").attr("value", config.ttl);
+                $("#enabled").prop("checked", config.enabled);
             }
         });
     }
@@ -41,7 +41,7 @@ AJS.toInit(function() {
 
     populateForm();
 
-    $("#admin").submit(function(e) {
+    $("#admin").submit(function (e) {
         e.preventDefault();
         updateConfig();
     });

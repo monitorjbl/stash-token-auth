@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class AdminConfig {
   @XmlElement
   private Boolean enabled = false;
+  private Integer ttl = 30;
 
   public Boolean getEnabled() {
     return enabled;
@@ -17,5 +18,13 @@ public class AdminConfig {
 
   public void setEnabled(Boolean enabled) {
     this.enabled = enabled;
+  }
+
+  public Integer getTtl() {
+    return ttl;
+  }
+
+  public void setTtl(Integer ttl) {
+    this.ttl = ttl;
   }
 }

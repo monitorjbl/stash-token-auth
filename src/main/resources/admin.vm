@@ -1,18 +1,27 @@
 <html>
   <head>
-    <title>$i18n.getText("xproduct.admin.label")</title>
+    <title>$i18n.getText("admin.label")</title>
     <meta name="decorator" content="atl.admin" />
     $webResourceManager.requireResource("com.thundermoose.plugins.stash-token-auth:resources")
     <meta name="application-base-url" content="$applicationProperties.getBaseUrl()">
   </head>
   <body>
+    <h2>$i18n.getText("admin.title")</h2>
     <form id="admin" class="aui">
       <div class="field-group">
-        <label for="enabled">$i18n.getText("xproduct.admin.name.label")</label>
-        <input type="checkbox" id="enabled" name="enabled" value="true">
+        <label for="ttl">$i18n.getText("admin.ttl.label")</label>
+        <input class="text short-field" type="text" id="ttl" name="ttl" maxlength="4">
+        <div class="description">$i18n.getText("admin.ttl.description")</div>
       </div>
+      <fieldset class="group checkbox">
+        <div class="checkbox">
+          <input type="checkbox" id="enabled" name="enabled" value="true">
+          <label for="enabled">$i18n.getText("admin.enabled.label")</label>
+          <div class="description">$i18n.getText("admin.enabled.description")</div>
+        </div>
+      </fieldset>
       <div class="field-group">
-        <input type="submit" value="$i18n.getText("xproduct.admin.save.label")" class="button">
+        <input type="submit" value="$i18n.getText("admin.save.label")" class="button">
       </div>
     </form>
   </body>

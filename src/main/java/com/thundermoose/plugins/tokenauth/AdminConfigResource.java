@@ -17,9 +17,7 @@ import com.atlassian.sal.api.transaction.TransactionCallback;
 import com.atlassian.sal.api.transaction.TransactionTemplate;
 import com.atlassian.sal.api.user.UserManager;
 import com.atlassian.sal.api.user.UserProfile;
-
-import static org.apache.commons.lang3.BooleanUtils.toBoolean;
-import static org.apache.commons.lang3.BooleanUtils.toStringTrueFalse;
+import org.apache.commons.lang3.BooleanUtils;
 
 @Path("/")
 public class AdminConfigResource {
@@ -46,7 +44,8 @@ public class AdminConfigResource {
       public Object doInTransaction() {
         PluginSettings settings = pluginSettingsFactory.createGlobalSettings();
         AdminConfig config = new AdminConfig();
-        config.setEnabled(toBoolean((String) settings.get(AdminConfigResource.class.getName() + ".enabled")));
+        config.setEnabled(BooleanUtils.toBoolean((String) settings.get(AdminConfigResource.class.getName() + ".enabled")));
+        config.setTtl(Integer.valueOf((String) settings.get(AdminConfigResource.class.getName() + ".ttl")));
         return config;
       }
     })).build();
@@ -62,8 +61,9 @@ public class AdminConfigResource {
 
     transactionTemplate.execute(new TransactionCallback() {
       public Object doInTransaction() {
-        PluginSettings pluginSettings = pluginSettingsFactory.createGlobalSettings();
-        pluginSettings.put(AdminConfig.class.getName() + ".enabled", toStringTrueFalse(config.getEnabled()));
+        PluginSettings settings = pluginSettingsFactory.createGlobalSettings();
+        settings.put(AdminConfigResource.class.getName() + ".enabled", BooleanUtils.toStringTrueFalse(config.getEnabled()));
+        settings.put(AdminConfigResource.class.getName() + ".ttl", Integer.toString(config.getTtl()));
         return null;
       }
     });
