@@ -54,5 +54,10 @@
     <link>/plugins/servlet/auth-token/user</link>
     <tooltip>Token-based Authentication</tooltip>
   </web-item>
+  <web-item key="refapp-menu-item" name="XProduct Admin" section="atl.admin/admin-settings-section" weight="10">
+    <description>Link to xproduct-admin page.</description>
+    <label>Token authentication</label>
+    <link>/plugins/servlet/auth-token/admin</link>
+  </web-item>
 
 </atlassian-plugin>

@@ -60,7 +60,10 @@ AJS.toInit(function () {
         updateConfig();
     });
 
-    $("#keyGenButton").click(function () {
-        generateKey();
+    $("#keyGenButton").click(function (e) {
+        e.preventDefault();
+        if (confirm("Are you sure you want to regenerate the server key? This will invalidate all active tokens.")) {
+            generateKey();
+        }
     })
 });
