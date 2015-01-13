@@ -29,6 +29,11 @@ public class UserConfigServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
     UserProfile user = userManager.getRemoteUser();
+    if (user == null) {
+      servletUtils.redirectToLogin(request, response);
+      return;
+    }
+
     response.setContentType("text/html;charset=utf-8");
     renderer.render("user.vm", response.getWriter());
   }

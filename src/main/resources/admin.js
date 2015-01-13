@@ -24,7 +24,18 @@ AJS.toInit(function () {
             dataType: "json",
             success: function (config) {
                 $("#ttl").attr("value", config.ttl);
+                $("#key").attr("value", config.key);
                 $("#enabled").prop("checked", config.enabled);
+            }
+        });
+    }
+
+    function generateKey() {
+        $.ajax({
+            url: baseUrl + "/plugins/servlet/auth-token/keygen",
+            dataType: "json",
+            success: function (key) {
+                $("#key").attr("value", key);
             }
         });
     }
@@ -35,7 +46,10 @@ AJS.toInit(function () {
             type: "PUT",
             contentType: "application/json",
             data: JSON.stringify($('#admin').serializeObject()),
-            processData: false
+            processData: false,
+            success: function () {
+                window.location.reload();
+            }
         });
     }
 
@@ -45,4 +59,8 @@ AJS.toInit(function () {
         e.preventDefault();
         updateConfig();
     });
+
+    $("#keyGenButton").click(function () {
+        generateKey();
+    })
 });

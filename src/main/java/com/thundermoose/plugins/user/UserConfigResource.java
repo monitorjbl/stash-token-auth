@@ -1,11 +1,11 @@
 package com.thundermoose.plugins.user;
 
-import com.atlassian.sal.api.pluginsettings.PluginSettings;
-import com.atlassian.sal.api.pluginsettings.PluginSettingsFactory;
-import com.atlassian.sal.api.transaction.TransactionCallback;
-import com.atlassian.sal.api.transaction.TransactionTemplate;
 import com.atlassian.sal.api.user.UserManager;
 import com.atlassian.sal.api.user.UserProfile;
+import com.thundermoose.plugins.admin.AdminConfigDao;
+import com.thundermoose.plugins.utils.Encrypter;
+import com.thundermoose.plugins.utils.ServletUtils;
+import org.apache.commons.codec.binary.Base64;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
@@ -18,46 +18,30 @@ import javax.ws.rs.core.Response;
 @Path("/user")
 public class UserConfigResource {
   private final UserManager userManager;
-  private final PluginSettingsFactory pluginSettingsFactory;
-  private final TransactionTemplate transactionTemplate;
+  private final AdminConfigDao adminDao;
+  private final UserConfigDao userDao;
+  private final ServletUtils servletUtils;
 
-  public UserConfigResource(UserManager userManager, PluginSettingsFactory pluginSettingsFactory,
-                            TransactionTemplate transactionTemplate) {
+  public UserConfigResource(UserManager userManager, AdminConfigDao adminDao, UserConfigDao userDao, ServletUtils servletUtils) {
     this.userManager = userManager;
-    this.pluginSettingsFactory = pluginSettingsFactory;
-    this.transactionTemplate = transactionTemplate;
+    this.adminDao = adminDao;
+    this.userDao = userDao;
+    this.servletUtils = servletUtils;
   }
 
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   public Response get(@Context HttpServletRequest request) {
-    final UserProfile user = userManager.getRemoteUser();
-    final String username = user.getUsername();
-    String token = getTokenForUser(user.getUsername());
-    if (token == null) {
-      token = transactionTemplate.execute(new TransactionCallback<String>() {
-        public String doInTransaction() {
-          PluginSettings settings = pluginSettingsFactory.createGlobalSettings();
-          String token = generateTokenForUser(username);
-          settings.put(UserConfigResource.class.getName() + "." + username + ".token", token);
-          return token;
-        }
-      });
+    UserProfile user = userManager.getRemoteUser();
+    String username = user.getUsername();
+    UserConfig config = userDao.getUserConfig(username);
+    if (config.getToken() == null) {
+      Encrypter encrypter = new Encrypter(Base64.decodeBase64(adminDao.getAdminConfig().getKey()));
+      config.setToken(encrypter.encrypt(servletUtils.generateTokenForUser(username, adminDao.getAdminConfig().getTtl())));
+      userDao.setUserConfig(username, config);
     }
-    return Response.ok("\"" + token + "\"").build();
+    return Response.ok(config).build();
   }
 
-  String getTokenForUser(final String username) {
-    return transactionTemplate.execute(new TransactionCallback<String>() {
-      public String doInTransaction() {
-        PluginSettings settings = pluginSettingsFactory.createGlobalSettings();
-        return (String) settings.get(UserConfigResource.class.getName() + "." + username + ".enabled");
-      }
-    });
-  }
-
-  String generateTokenForUser(String username) {
-    return username + System.currentTimeMillis();
-  }
 
 }

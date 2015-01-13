@@ -6,8 +6,8 @@ AJS.toInit(function () {
         $.ajax({
             url: baseUrl + "/rest/auth-token/1.0/user",
             dataType: "json",
-            success: function (token) {
-                $("#token").val(token);
+            success: function (config) {
+                $("#token").val(config.token);
             }
         });
     }

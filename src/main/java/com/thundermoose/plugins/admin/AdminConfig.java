@@ -9,9 +9,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class AdminConfig {
   @XmlElement
-  private Boolean enabled = false;
+  private Boolean enabled;
   @XmlElement
-  private Integer ttl = 30;
+  private Integer ttl;
   @XmlElement
   private String key;
 

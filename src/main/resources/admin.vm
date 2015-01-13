@@ -9,9 +9,9 @@
     <h2>$i18n.getText("admin.label")</h2>
     <form id="admin" class="aui">
       <div class="field-group">
-        <label for="ttl">$i18n.getText("admin.key.label")</label>
+        <label for="key">$i18n.getText("admin.key.label")</label>
         <input class="text" type="text" id="key" name="key">
-        <button class="aui-button add-button">$i18n.getText("admin.key.button.label")</button>
+        <span id="keyGenButton" class="aui-button add-button">$i18n.getText("admin.key.button.label")</span>
         <div class="description">$i18n.getText("admin.key.description")</div>
       </div>
       <div class="field-group">

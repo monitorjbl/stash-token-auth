@@ -13,7 +13,7 @@ public class KeygenServlet extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
     try {
       response.setStatus(HttpServletResponse.SC_OK);
-      response.getWriter().print(new KeyGenerator().generateKey());
+      response.getWriter().print('"' + new KeyGenerator().generateKey() + '"');
     } catch (Exception e) {
       response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }

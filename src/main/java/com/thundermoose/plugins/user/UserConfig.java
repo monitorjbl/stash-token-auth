@@ -11,6 +11,13 @@ public class UserConfig {
   @XmlElement
   private String token;
 
+  public UserConfig() {
+  }
+
+  public UserConfig(String token) {
+    this.token = token;
+  }
+
   public String getToken() {
     return token;
   }

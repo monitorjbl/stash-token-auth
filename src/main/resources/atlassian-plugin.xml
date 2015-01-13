@@ -17,6 +17,8 @@
   <component-import key="transactionTemplate" interface="com.atlassian.sal.api.transaction.TransactionTemplate"/>
 
   <component key="servletUtils" class="com.thundermoose.plugins.utils.ServletUtils"/>
+  <component key="adminConfigDao" class="com.thundermoose.plugins.admin.AdminConfigDao"/>
+  <component key="userConfigDao" class="com.thundermoose.plugins.user.UserConfigDao"/>
 
   <resource type="i18n" name="i18n" location="com.thundermoose.plugins.tokenauth.i18n"/>
   <web-resource name="Admin Web Resources" key="resources">

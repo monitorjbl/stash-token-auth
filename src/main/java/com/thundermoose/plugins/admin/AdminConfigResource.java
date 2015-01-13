@@ -11,26 +11,18 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
-import com.atlassian.sal.api.pluginsettings.PluginSettings;
-import com.atlassian.sal.api.pluginsettings.PluginSettingsFactory;
-import com.atlassian.sal.api.transaction.TransactionCallback;
-import com.atlassian.sal.api.transaction.TransactionTemplate;
 import com.atlassian.sal.api.user.UserManager;
 import com.atlassian.sal.api.user.UserProfile;
-import org.apache.commons.lang3.BooleanUtils;
+import com.thundermoose.plugins.utils.KeyGenerator;
 
 @Path("/admin")
 public class AdminConfigResource {
-  public static final String BASE = AdminConfigResource.class.getName();
   private final UserManager userManager;
-  private final PluginSettingsFactory pluginSettingsFactory;
-  private final TransactionTemplate transactionTemplate;
+  private final AdminConfigDao dao;
 
-  public AdminConfigResource(UserManager userManager, PluginSettingsFactory pluginSettingsFactory,
-                             TransactionTemplate transactionTemplate) {
+  public AdminConfigResource(UserManager userManager, AdminConfigDao dao) {
     this.userManager = userManager;
-    this.pluginSettingsFactory = pluginSettingsFactory;
-    this.transactionTemplate = transactionTemplate;
+    this.dao = dao;
   }
 
   @GET
@@ -40,20 +32,7 @@ public class AdminConfigResource {
     if (user == null || !userManager.isSystemAdmin(user.getUserKey())) {
       return Response.status(Response.Status.UNAUTHORIZED).build();
     }
-
-    return Response.ok(transactionTemplate.execute(new TransactionCallback() {
-      public Object doInTransaction() {
-        PluginSettings settings = pluginSettingsFactory.createGlobalSettings();
-        AdminConfig config = new AdminConfig();
-        config.setEnabled(BooleanUtils.toBoolean((String) settings.get(BASE + ".enabled")));
-        config.setKey((String) settings.get(BASE + ".key"));
-        String ttl = (String) settings.get(BASE + ".ttl");
-        if (ttl != null) {
-          config.setTtl(Integer.valueOf(ttl));
-        }
-        return config;
-      }
-    })).build();
+    return Response.ok(dao.getAdminConfig()).build();
   }
 
   @PUT
@@ -63,16 +42,7 @@ public class AdminConfigResource {
     if (user == null || !userManager.isSystemAdmin(user.getUserKey())) {
       return Response.status(Status.UNAUTHORIZED).build();
     }
-
-    transactionTemplate.execute(new TransactionCallback() {
-      public Object doInTransaction() {
-        PluginSettings settings = pluginSettingsFactory.createGlobalSettings();
-        settings.put(BASE + ".enabled", BooleanUtils.toStringTrueFalse(config.getEnabled()));
-        settings.put(BASE + ".ttl", Integer.toString(config.getTtl()));
-        settings.put(BASE + ".key", config.getKey());
-        return null;
-      }
-    });
+    dao.setAdminConfig(config);
     return Response.noContent().build();
   }
 
