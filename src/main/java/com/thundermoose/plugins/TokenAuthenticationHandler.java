@@ -46,12 +46,13 @@ public class TokenAuthenticationHandler implements HttpAuthenticationHandler {
 
   @Nullable
   @Override
-  public StashUser authenticate(HttpAuthenticationContext httpAuthenticationContext) {
-    HttpServletRequest request = httpAuthenticationContext.getRequest();
+  public StashUser authenticate(HttpAuthenticationContext ctx) {
+    HttpServletRequest request = ctx.getRequest();
     String username = request.getHeader(USER_HEADER);
     String token = request.getHeader(TOKEN_HEADER);
 
-    if (isNotEmpty(username) && isNotEmpty(token)) {
+    if (isNotEmpty(username) && isNotEmpty(token)
+        && request.getRequestURI().replaceFirst(request.getContextPath(), "").startsWith("/rest/")) {
       log.warn("Token auth for user [" + username + "] allowed for [" + request.getRequestURI() + "]");
       if (isTokenValid(username, token)) {
         return userService.getUserByName(username);

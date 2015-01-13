@@ -30,17 +30,32 @@ public class UserConfigResource {
   }
 
   @GET
+  @Path("/")
   @Produces(MediaType.APPLICATION_JSON)
-  public Response get(@Context HttpServletRequest request) {
+  public Response getConfig(@Context HttpServletRequest request) {
     UserProfile user = userManager.getRemoteUser();
     String username = user.getUsername();
     UserConfig config = userDao.getUserConfig(username);
     if (config.getToken() == null) {
-      Encrypter encrypter = new Encrypter(Base64.decodeBase64(adminDao.getAdminConfig().getKey()));
-      config.setToken(encrypter.encrypt(servletUtils.generateTokenForUser(username, adminDao.getAdminConfig().getTtl())));
+      config.setToken(generateEncryptedToken(username));
       userDao.setUserConfig(username, config);
     }
     return Response.ok(config).build();
+  }
+
+  @GET
+  @Path("/regenerate-token")
+  @Produces(MediaType.APPLICATION_JSON)
+  public Response regenerateToken(@Context HttpServletRequest request) {
+    UserProfile user = userManager.getRemoteUser();
+    String username = user.getUsername();
+    userDao.setUserConfig(username, new UserConfig(generateEncryptedToken(username)));
+    return Response.ok().build();
+  }
+
+  private String generateEncryptedToken(String username) {
+    Encrypter encrypter = new Encrypter(Base64.decodeBase64(adminDao.getAdminConfig().getKey()));
+    return encrypter.encrypt(servletUtils.generateTokenForUser(username, adminDao.getAdminConfig().getTtl()));
   }
 
 

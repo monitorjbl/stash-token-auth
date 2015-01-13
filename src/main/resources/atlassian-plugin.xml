@@ -20,7 +20,7 @@
   <component key="adminConfigDao" class="com.thundermoose.plugins.admin.AdminConfigDao"/>
   <component key="userConfigDao" class="com.thundermoose.plugins.user.UserConfigDao"/>
 
-  <resource type="i18n" name="i18n" location="com.thundermoose.plugins.tokenauth.i18n"/>
+  <resource type="i18n" name="i18n" location="com.thundermoose.plugins.i18n"/>
   <web-resource name="Admin Web Resources" key="resources">
     <dependency>com.atlassian.auiplugin:ajs</dependency>
     <resource type="download" name="admin.js" location="admin.js"/>

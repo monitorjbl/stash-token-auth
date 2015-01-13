@@ -10,7 +10,8 @@
     <form id="user" class="aui">
       <div class="field-group">
         <label for="ttl">$i18n.getText("user.token.label")</label>
-        <textarea class="textarea" type="text" id="token" name="token" rows="12" disabled></textarea>
+        <span id="keyGenButton" class="aui-button add-button">$i18n.getText("user.token.button.label")</span>
+        <textarea class="textarea" type="text" id="token" name="token" rows="6" disabled></textarea>
         <div class="description">$i18n.getText("user.token.description")</div>
       </div>
     </form>

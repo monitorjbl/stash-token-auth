@@ -12,5 +12,19 @@ AJS.toInit(function () {
         });
     }
 
+    function regenerateToken() {
+        $.ajax({
+            url: baseUrl + "/rest/auth-token/1.0/user/regenerate-token",
+            success: function () {
+                window.location.reload();
+            }
+        });
+    }
+
     populateForm();
+
+    $("#keyGenButton").click(function(){
+        if(confirm("Are you sure you want to regenerate this token?"))
+        regenerateToken();
+    });
 });
