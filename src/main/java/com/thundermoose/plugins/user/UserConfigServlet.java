@@ -3,7 +3,7 @@ package com.thundermoose.plugins.user;
 import com.atlassian.sal.api.user.UserManager;
 import com.atlassian.sal.api.user.UserProfile;
 import com.atlassian.templaterenderer.TemplateRenderer;
-import com.thundermoose.plugins.utils.ServletUtils;
+import com.thundermoose.plugins.utils.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,24 +18,24 @@ public class UserConfigServlet extends HttpServlet {
 
   private final UserManager userManager;
   private final TemplateRenderer renderer;
-  private final ServletUtils servletUtils;
+  private final Utils utils;
 
-  public UserConfigServlet(UserManager userManager, TemplateRenderer renderer, ServletUtils servletUtils) {
+  public UserConfigServlet(UserManager userManager, TemplateRenderer renderer, Utils utils) {
     this.userManager = userManager;
     this.renderer = renderer;
-    this.servletUtils = servletUtils;
+    this.utils = utils;
   }
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
     UserProfile user = userManager.getRemoteUser();
     if (user == null) {
-      servletUtils.redirectToLogin(request, response);
+      utils.redirectToLogin(request, response);
       return;
     }
 
     response.setContentType("text/html;charset=utf-8");
-    renderer.render("user.vm", response.getWriter());
+    renderer.render("user.html", response.getWriter());
   }
 
 }

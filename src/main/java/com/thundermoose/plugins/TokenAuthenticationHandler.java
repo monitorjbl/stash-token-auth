@@ -9,7 +9,7 @@ import com.thundermoose.plugins.user.UserConfig;
 import com.thundermoose.plugins.user.UserConfigDao;
 import com.thundermoose.plugins.utils.Encrypter;
 import com.thundermoose.plugins.utils.EncryptionException;
-import com.thundermoose.plugins.utils.ServletUtils;
+import com.thundermoose.plugins.utils.Utils;
 import org.apache.commons.codec.binary.Base64;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
@@ -28,13 +28,13 @@ public class TokenAuthenticationHandler implements HttpAuthenticationHandler {
   public static final String TOKEN_HEADER = "X-Auth-Token";
 
   private final UserService userService;
-  private final ServletUtils servletUtils;
+  private final Utils utils;
   private final UserConfigDao userDao;
   private final AdminConfigDao adminDao;
 
-  public TokenAuthenticationHandler(UserService userService, ServletUtils servletUtils, UserConfigDao userDao, AdminConfigDao adminDao) {
+  public TokenAuthenticationHandler(UserService userService, Utils utils, UserConfigDao userDao, AdminConfigDao adminDao) {
     this.userService = userService;
-    this.servletUtils = servletUtils;
+    this.utils = utils;
     this.userDao = userDao;
     this.adminDao = adminDao;
   }
@@ -75,7 +75,7 @@ public class TokenAuthenticationHandler implements HttpAuthenticationHandler {
         return true;
       } else if (Objects.equals(split[0], username) && DateTime.now().isAfter(Long.parseLong(split[2]))) {
         //token is expired, generate a new one
-        userDao.setUserConfig(username, new UserConfig(encrypter.encrypt(servletUtils.generateTokenForUser(username, adminDao.getAdminConfig().getTtl()))));
+        userDao.setUserConfig(username, new UserConfig(encrypter.encrypt(utils.generateTokenForUser(username, adminDao.getAdminConfig().getTtl()))));
       }
     } catch (EncryptionException e) {
       log.debug("Could not decrypt provided token", e);

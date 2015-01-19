@@ -1,4 +1,4 @@
-package com.thundermoose.plugins;
+package com.thundermoose.plugins.utils;
 
 import com.thundermoose.plugins.utils.Encrypter;
 import com.thundermoose.plugins.utils.KeyGenerator;

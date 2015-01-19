@@ -4,7 +4,7 @@ import com.atlassian.sal.api.user.UserManager;
 import com.atlassian.sal.api.user.UserProfile;
 import com.thundermoose.plugins.admin.AdminConfigDao;
 import com.thundermoose.plugins.utils.Encrypter;
-import com.thundermoose.plugins.utils.ServletUtils;
+import com.thundermoose.plugins.utils.Utils;
 import org.apache.commons.codec.binary.Base64;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,13 +20,13 @@ public class UserConfigResource {
   private final UserManager userManager;
   private final AdminConfigDao adminDao;
   private final UserConfigDao userDao;
-  private final ServletUtils servletUtils;
+  private final Utils utils;
 
-  public UserConfigResource(UserManager userManager, AdminConfigDao adminDao, UserConfigDao userDao, ServletUtils servletUtils) {
+  public UserConfigResource(UserManager userManager, AdminConfigDao adminDao, UserConfigDao userDao, Utils utils) {
     this.userManager = userManager;
     this.adminDao = adminDao;
     this.userDao = userDao;
-    this.servletUtils = servletUtils;
+    this.utils = utils;
   }
 
   @GET
@@ -55,7 +55,7 @@ public class UserConfigResource {
 
   private String generateEncryptedToken(String username) {
     Encrypter encrypter = new Encrypter(Base64.decodeBase64(adminDao.getAdminConfig().getKey()));
-    return encrypter.encrypt(servletUtils.generateTokenForUser(username, adminDao.getAdminConfig().getTtl()));
+    return encrypter.encrypt(utils.generateTokenForUser(username, adminDao.getAdminConfig().getTtl()));
   }
 
 

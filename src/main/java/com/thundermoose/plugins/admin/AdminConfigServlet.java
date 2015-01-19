@@ -2,7 +2,7 @@ package com.thundermoose.plugins.admin;
 
 import com.atlassian.sal.api.user.UserManager;
 import com.atlassian.sal.api.user.UserProfile;
-import com.thundermoose.plugins.utils.ServletUtils;
+import com.thundermoose.plugins.utils.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,24 +19,24 @@ public class AdminConfigServlet extends HttpServlet {
 
   private final UserManager userManager;
   private final TemplateRenderer renderer;
-  private final ServletUtils servletUtils;
+  private final Utils utils;
 
-  public AdminConfigServlet(UserManager userManager, TemplateRenderer renderer, ServletUtils servletUtils) {
+  public AdminConfigServlet(UserManager userManager, TemplateRenderer renderer, Utils utils) {
     this.userManager = userManager;
     this.renderer = renderer;
-    this.servletUtils = servletUtils;
+    this.utils = utils;
   }
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
     UserProfile user = userManager.getRemoteUser();
     if (user == null || !userManager.isSystemAdmin(user.getUserKey())) {
-      servletUtils.redirectToLogin(request, response);
+      utils.redirectToLogin(request, response);
       return;
     }
 
     response.setContentType("text/html;charset=utf-8");
-    renderer.render("admin.vm", response.getWriter());
+    renderer.render("admin.html", response.getWriter());
   }
 
 }

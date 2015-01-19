@@ -16,7 +16,7 @@
   <component-import key="pluginSettingsFactory" interface="com.atlassian.sal.api.pluginsettings.PluginSettingsFactory"/>
   <component-import key="transactionTemplate" interface="com.atlassian.sal.api.transaction.TransactionTemplate"/>
 
-  <component key="servletUtils" class="com.thundermoose.plugins.utils.ServletUtils"/>
+  <component key="servletUtils" class="com.thundermoose.plugins.utils.Utils"/>
   <component key="adminConfigDao" class="com.thundermoose.plugins.admin.AdminConfigDao"/>
   <component key="userConfigDao" class="com.thundermoose.plugins.user.UserConfigDao"/>
 
