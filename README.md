@@ -23,7 +23,9 @@ Once you've got the plugin installed, any user can log in and go to their accoun
 
 ```
 TOKEN=<paste token here>
-curl -H "X-Auth-User:admin" -H "X-Auth-Token:$TOKEN" http://localhost:7990/stash/rest/api/1.0/projects/PROJECT_1/repos
+curl  -H "X-Auth-User:admin" \
+      -H "X-Auth-Token:$TOKEN" \
+      http://localhost:7990/stash/rest/api/1.0/projects/PROJECT_1/repos
 
 ```
 
