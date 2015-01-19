@@ -4,7 +4,9 @@ import com.atlassian.stash.auth.HttpAuthenticationContext;
 import com.atlassian.stash.auth.HttpAuthenticationHandler;
 import com.atlassian.stash.user.StashUser;
 import com.atlassian.stash.user.UserService;
+import com.thundermoose.plugins.admin.AdminConfig;
 import com.thundermoose.plugins.admin.AdminConfigDao;
+import com.thundermoose.plugins.paths.PathMatcher;
 import com.thundermoose.plugins.user.UserConfig;
 import com.thundermoose.plugins.user.UserConfigDao;
 import com.thundermoose.plugins.utils.Encrypter;
@@ -50,10 +52,10 @@ public class TokenAuthenticationHandler implements HttpAuthenticationHandler {
     HttpServletRequest request = ctx.getRequest();
     String username = request.getHeader(USER_HEADER);
     String token = request.getHeader(TOKEN_HEADER);
+    String path = request.getRequestURI().replaceFirst(request.getContextPath(), "");
 
-    if (isNotEmpty(username) && isNotEmpty(token)
-        && request.getRequestURI().replaceFirst(request.getContextPath(), "").startsWith("/rest/")) {
-      if (isTokenValid(username, token)) {
+    if (isNotEmpty(username) && isNotEmpty(token) && path.startsWith("/rest/")) {
+      if (isTokenValid(path, username, token)) {
         return userService.getUserByName(username);
       }
     }
@@ -61,21 +63,29 @@ public class TokenAuthenticationHandler implements HttpAuthenticationHandler {
     return null;
   }
 
-  boolean isTokenValid(String username, String token) {
+  boolean isTokenValid(String path, String username, String token) {
     try {
-      Encrypter encrypter = new Encrypter(Base64.decodeBase64(adminDao.getAdminConfig().getKey()));
+      AdminConfig config = adminDao.getAdminConfig();
+      if (!config.getEnabled()) {
+        return false;
+      }
+
+      Encrypter encrypter = new Encrypter(Base64.decodeBase64(config.getKey()));
       String unencrypted = encrypter.decrypt(token);
       String[] split = unencrypted.split(":");
-
       if (split.length != 4) {
         //not a valid token
         return false;
       } else if (Objects.equals(split[0], username) && DateTime.now().isBefore(Long.parseLong(split[2]))) {
-        //token is valid
-        return true;
+        //token is valid, see if the path is allowed token access by admin
+        return new PathMatcher(
+            config.getAdminPaths(),
+            config.getProjectPaths(),
+            config.getRepoPaths()
+        ).pathAllowed(path);
       } else if (Objects.equals(split[0], username) && DateTime.now().isAfter(Long.parseLong(split[2]))) {
         //token is expired, generate a new one
-        userDao.setUserConfig(username, new UserConfig(encrypter.encrypt(utils.generateTokenForUser(username, adminDao.getAdminConfig().getTtl()))));
+        userDao.setUserConfig(username, new UserConfig(encrypter.encrypt(utils.generateTokenForUser(username, config.getTtl()))));
       }
     } catch (EncryptionException e) {
       log.debug("Could not decrypt provided token", e);

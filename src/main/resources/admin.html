@@ -81,10 +81,10 @@
                         <div class="description">$i18n.getText("admin.paths.project.permissions.description")</div>
                     </div>
                     <div class="checkbox">
-                        <input type="checkbox" id="project.repos" name="project.repos" value="true">
-                        <label for="admin.groups">$i18n.getText("admin.paths.project.repos.label")</label>
+                        <input type="checkbox" id="project.repos" name="project.repoList" value="true">
+                        <label for="admin.groups">$i18n.getText("admin.paths.project.repoList.label")</label>
 
-                        <div class="description">$i18n.getText("admin.paths.project.repos.description")</div>
+                        <div class="description">$i18n.getText("admin.paths.project.repoList.description")</div>
                     </div>
                 </td>
                 <td>
@@ -95,10 +95,10 @@
                         <div class="description">$i18n.getText("admin.paths.repo.permissions.description")</div>
                     </div>
                     <div class="checkbox">
-                        <input type="checkbox" id="repo.commits" name="repo.commits" value="true">
-                        <label for="admin.groups">$i18n.getText("admin.paths.repo.commits.label")</label>
+                        <input type="checkbox" id="repo.commits" name="repo.commitHistory" value="true">
+                        <label for="admin.groups">$i18n.getText("admin.paths.repo.commitHistory.label")</label>
 
-                        <div class="description">#set($messageHtml = $i18n.getText('admin.paths.repo.commits.description'))$messageHtml</div>
+                        <div class="description">#set($messageHtml = $i18n.getText('admin.paths.repo.commitHistory.description'))$messageHtml</div>
                     </div>
                     <div class="checkbox">
                         <input type="checkbox" id="repo.files" name="repo.files" value="true">
@@ -118,7 +118,7 @@
         </table>
     </fieldset>
     <div class="field-group">
-        <input type="submit" value="$i18n.getText(" admin.save.label")" class="button">
+        <input type="submit" value="$i18n.getText('admin.save.label')" class="button">
     </div>
 </form>
 </body>
