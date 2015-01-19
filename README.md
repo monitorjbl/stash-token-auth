@@ -40,3 +40,7 @@ From this screen, an admin can control settings that affect all tokens on the se
 
 From here, a user can see and regenerate his personal token.
 ![User Screenshot](/src/main/resources/images/screenshot-user.png?raw=true)
+
+## Attributions
+
+Key Icon by [Udana Ekanayake](https://www.iconfinder.com/ekanayake) used under Creative Commons
