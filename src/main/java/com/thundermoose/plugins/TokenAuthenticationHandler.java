@@ -2,6 +2,8 @@ package com.thundermoose.plugins;
 
 import com.atlassian.stash.auth.HttpAuthenticationContext;
 import com.atlassian.stash.auth.HttpAuthenticationHandler;
+import com.atlassian.stash.i18n.I18nKey;
+import com.atlassian.stash.i18n.I18nService;
 import com.atlassian.stash.user.StashUser;
 import com.atlassian.stash.user.UserService;
 import com.thundermoose.plugins.admin.AdminConfig;
@@ -30,12 +32,15 @@ public class TokenAuthenticationHandler implements HttpAuthenticationHandler {
   public static final String TOKEN_HEADER = "X-Auth-Token";
 
   private final UserService userService;
+  private final I18nService i18nService;
   private final Utils utils;
   private final UserConfigDao userDao;
   private final AdminConfigDao adminDao;
 
-  public TokenAuthenticationHandler(UserService userService, Utils utils, UserConfigDao userDao, AdminConfigDao adminDao) {
+  public TokenAuthenticationHandler(UserService userService, I18nService i18nService, Utils utils,
+                                    UserConfigDao userDao, AdminConfigDao adminDao) {
     this.userService = userService;
+    this.i18nService = i18nService;
     this.utils = utils;
     this.userDao = userDao;
     this.adminDao = adminDao;
@@ -89,6 +94,7 @@ public class TokenAuthenticationHandler implements HttpAuthenticationHandler {
       }
     } catch (EncryptionException e) {
       log.debug("Could not decrypt provided token", e);
+      throw new TokenAuthenticationException(i18nService.getKeyedText(new I18nKey("auth.exception.message")));
     }
     return false;
   }
