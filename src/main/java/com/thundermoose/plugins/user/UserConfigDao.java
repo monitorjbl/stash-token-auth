@@ -7,7 +7,6 @@ import com.atlassian.sal.api.transaction.TransactionTemplate;
 import com.google.common.collect.Lists;
 
 import java.util.List;
-import java.util.Map;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Sets.newHashSet;

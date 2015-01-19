@@ -21,7 +21,6 @@ import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nullable;
 import javax.servlet.http.HttpServletRequest;
-
 import java.util.Objects;
 
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
