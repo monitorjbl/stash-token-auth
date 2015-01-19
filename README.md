@@ -22,7 +22,7 @@ of a breach.
 Once you've got the plugin installed, any user can log in and go to their account page to see their token. Simply copy it out and dump it into whatever client you'd like to use. Here's a quick and dirty example using cURL:
 
 ```
-TOKEN=210Vh7rX2VQaHr0wj1EV5BJIRsnd4xNzQ8tmyMZg4JuOdEz9FHvF/IeJMdrfg/LDaFIBDz5z6RJWep7cUN28uRjeZFjOiq2y68GK1OdDssY=
+TOKEN=<paste token here>
 curl -H "X-Auth-User:admin" -H "X-Auth-Token:$TOKEN" http://localhost:7990/stash/rest/api/1.0/projects/PROJECT_1/repos
 
 ```
