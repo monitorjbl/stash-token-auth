@@ -1,0 +1,7 @@
+<atlassian-plugin-marketing>
+  <logo image="images/pluginIcon.png"/>
+  <screenshots>
+    <screenshot image="images/screenshot-user.png"/>
+    <screenshot image="images/screenshot-admin.png"/>
+  </screenshots>
+</atlassian-plugin-marketing>
