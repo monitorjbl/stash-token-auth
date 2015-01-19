@@ -27,7 +27,7 @@ curl -H "X-Auth-User:admin" -H "X-Auth-Token:$TOKEN" http://localhost:7990/stash
 
 ```
 
-## Screenshots
+## UI Elements
 
 ### Administration config
 
