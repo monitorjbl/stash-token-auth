@@ -4,6 +4,9 @@
     <meta name="decorator" content="stash.users.account" />
     $webResourceManager.requireResource("com.thundermoose.plugins.stash-token-auth:resources")
     <meta name="application-base-url" content="$applicationProperties.getBaseUrl()">
+    <script>
+      AJS.toInit(function(){userInit();});
+    </script>
   </head>
   <body>
     <h2>$i18n.getText("user.label")</h2>

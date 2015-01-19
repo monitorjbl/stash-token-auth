@@ -1,4 +1,4 @@
-AJS.toInit(function () {
+var adminInit = function () {
     var $ = AJS.$;
     var baseUrl = $("meta[name='application-base-url']").attr("content");
 
@@ -41,6 +41,7 @@ AJS.toInit(function () {
     }
 
     function updateConfig() {
+        console.log("updating config");
         $.ajax({
             url: baseUrl + "/rest/auth-token/1.0/admin",
             type: "PUT",
@@ -48,7 +49,7 @@ AJS.toInit(function () {
             data: JSON.stringify($('#admin').serializeObject()),
             processData: false,
             success: function () {
-                window.location.reload();
+                //window.location.reload();
             }
         });
     }
@@ -66,4 +67,4 @@ AJS.toInit(function () {
             generateKey();
         }
     })
-});
+};

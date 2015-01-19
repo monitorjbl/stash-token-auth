@@ -1,4 +1,4 @@
-AJS.toInit(function () {
+var userInit = function () {
     var $ = AJS.$;
     var baseUrl = $("meta[name='application-base-url']").attr("content");
 
@@ -23,8 +23,8 @@ AJS.toInit(function () {
 
     populateForm();
 
-    $("#keyGenButton").click(function(){
-        if(confirm("Are you sure you want to regenerate this token?"))
-        regenerateToken();
+    $("#keyGenButton").click(function () {
+        if (confirm("Are you sure you want to regenerate this token?"))
+            regenerateToken();
     });
-});
+};

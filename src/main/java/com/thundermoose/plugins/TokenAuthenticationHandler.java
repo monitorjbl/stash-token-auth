@@ -8,6 +8,7 @@ import com.thundermoose.plugins.admin.AdminConfigDao;
 import com.thundermoose.plugins.user.UserConfig;
 import com.thundermoose.plugins.user.UserConfigDao;
 import com.thundermoose.plugins.utils.Encrypter;
+import com.thundermoose.plugins.utils.EncryptionException;
 import com.thundermoose.plugins.utils.ServletUtils;
 import org.apache.commons.codec.binary.Base64;
 import org.joda.time.DateTime;
@@ -23,7 +24,6 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 public class TokenAuthenticationHandler implements HttpAuthenticationHandler {
   private static final Logger log = LoggerFactory.getLogger(TokenAuthenticationHandler.class);
-  public static final String KEY_CONTAINER_AUTH_NAME = "auth.container.remote-user";
   public static final String USER_HEADER = "X-Auth-User";
   public static final String TOKEN_HEADER = "X-Auth-Token";
 
@@ -53,7 +53,6 @@ public class TokenAuthenticationHandler implements HttpAuthenticationHandler {
 
     if (isNotEmpty(username) && isNotEmpty(token)
         && request.getRequestURI().replaceFirst(request.getContextPath(), "").startsWith("/rest/")) {
-      log.warn("Token auth for user [" + username + "] allowed for [" + request.getRequestURI() + "]");
       if (isTokenValid(username, token)) {
         return userService.getUserByName(username);
       }
@@ -63,19 +62,23 @@ public class TokenAuthenticationHandler implements HttpAuthenticationHandler {
   }
 
   boolean isTokenValid(String username, String token) {
-    Encrypter encrypter = new Encrypter(Base64.decodeBase64(adminDao.getAdminConfig().getKey()));
-    String unencrypted = encrypter.decrypt(token);
-    String[] split = unencrypted.split(":");
+    try {
+      Encrypter encrypter = new Encrypter(Base64.decodeBase64(adminDao.getAdminConfig().getKey()));
+      String unencrypted = encrypter.decrypt(token);
+      String[] split = unencrypted.split(":");
 
-    if (split.length != 4) {
-      //not a valid token
-      return false;
-    } else if (Objects.equals(split[0], username) && DateTime.now().isBefore(Long.parseLong(split[2]))) {
-      //token is valid
-      return true;
-    } else if (Objects.equals(split[0], username) && DateTime.now().isAfter(Long.parseLong(split[2]))) {
-      //token is expired, generate a new one
-      userDao.setUserConfig(username, new UserConfig(encrypter.encrypt(servletUtils.generateTokenForUser(username, adminDao.getAdminConfig().getTtl()))));
+      if (split.length != 4) {
+        //not a valid token
+        return false;
+      } else if (Objects.equals(split[0], username) && DateTime.now().isBefore(Long.parseLong(split[2]))) {
+        //token is valid
+        return true;
+      } else if (Objects.equals(split[0], username) && DateTime.now().isAfter(Long.parseLong(split[2]))) {
+        //token is expired, generate a new one
+        userDao.setUserConfig(username, new UserConfig(encrypter.encrypt(servletUtils.generateTokenForUser(username, adminDao.getAdminConfig().getTtl()))));
+      }
+    } catch (EncryptionException e) {
+      log.debug("Could not decrypt provided token", e);
     }
     return false;
   }
