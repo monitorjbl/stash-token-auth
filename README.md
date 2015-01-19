@@ -16,3 +16,11 @@ scripting! Because the token is randomly generated (and can be regenerated anyti
 the world if a security breach happens. The person who steals your token can't do anything with it once you regenerate
 it, and access can be administratively restricted to specific areas of the REST service to limit damage in the event
 of a breach.
+
+## Screenshots
+
+**Administration config**
+![Imgur](http://i.imgur.com/0fCRtbb.png)
+
+**User config**
+![Imgur](http://i.imgur.com/CjzM2hV.png)
