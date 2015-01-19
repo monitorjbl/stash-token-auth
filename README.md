@@ -32,9 +32,9 @@ curl -H "X-Auth-User:admin" -H "X-Auth-Token:$TOKEN" http://localhost:7990/stash
 ### Administration config
 
 From this screen, an admin can control settings that affect all tokens on the server.
-![Imgur](http://i.imgur.com/0fCRtbb.png)
+![Admin Screenshot](/src/main/resources/images/screenshot-admin.png?raw=true)
 
 ### User config
 
 From here, a user can see and regenerate his personal token.
-![Imgur](http://i.imgur.com/CjzM2hV.png)
+![User Screenshot](/src/main/resources/images/screenshot-user.png?raw=true)
