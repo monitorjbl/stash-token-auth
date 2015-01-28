@@ -12,7 +12,7 @@ public class ProjectPaths implements Paths {
   @Matches({"/rest/api/1.0/projects/*/permissions/**"})
   private boolean permissions;
   @XmlElement
-  @Matches({"/rest/api/1.0/projects/*/repos/**"})
+  @Matches({"/rest/api/1.0/projects/*/repos"})
   private boolean repoList;
 
   public ProjectPaths() {

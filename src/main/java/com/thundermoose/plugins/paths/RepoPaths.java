@@ -28,7 +28,7 @@ public class RepoPaths implements Paths {
   })
   private boolean files;
   @XmlElement
-  @Matches({"/rest/api/1.0/projects/*/pull-requests/**"})
+  @Matches({"/rest/api/1.0/projects/*/repos/*/pull-requests/**"})
   private boolean pullRequests;
 
   public RepoPaths(boolean permissions, boolean commitHistory, boolean files, boolean pullRequests) {
