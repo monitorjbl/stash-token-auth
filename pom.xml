@@ -9,13 +9,7 @@
   <artifactId>stash-token-auth</artifactId>
   <version>1.1-SNAPSHOT</version>
 
-  <organization>
-    <name>Thundermoose</name>
-    <url>http://www.example.com/</url>
-  </organization>
-
   <name>stash-token-auth</name>
-  <description>This is the com.thundermoose:stash-token-auth plugin for Atlassian Stash.</description>
   <packaging>atlassian-plugin</packaging>
 
   <dependencyManagement>
@@ -124,7 +118,7 @@
   </build>
 
   <properties>
-    <stash.version>3.5.1</stash.version>
+    <stash.version>3.3.0</stash.version>
     <stash.data.version>3.5.1</stash.data.version>
     <amps.version>5.0.4</amps.version>
     <plugin.testrunner.version>1.2.3</plugin.testrunner.version>
