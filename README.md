@@ -2,7 +2,7 @@
 
 ![Key](/src/main/resources/images/pluginIcon.png?raw=true)
 
-Enables token-based authentication to the Stash REST API for individual users.
+Enables token-based authentication to the Stash REST API for individual users. Available on the [Atlassian Marketplace](https://marketplace.atlassian.com/plugins/com.thundermoose.plugins.stash-token-auth) now.
 
 ## Why?
 
