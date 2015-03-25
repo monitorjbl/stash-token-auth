@@ -80,14 +80,17 @@ public class TokenAuthenticationHandler implements HttpAuthenticationHandler {
       if (split.length != 4) {
         //not a valid token
         return false;
-      } else if (Objects.equals(split[0], username) && DateTime.now().isBefore(Long.parseLong(split[2]))) {
+      }
+
+      DateTime expiry = new DateTime(Long.parseLong(split[1])).plusDays(adminDao.getAdminConfig().getTtl());
+      if (Objects.equals(split[0], username) && DateTime.now().isBefore(expiry)) {
         //token is valid, see if the path is allowed token access by admin
         return new PathMatcher(
             config.getAdminPaths(),
             config.getProjectPaths(),
             config.getRepoPaths()
         ).pathAllowed(path);
-      } else if (Objects.equals(split[0], username) && DateTime.now().isAfter(Long.parseLong(split[2]))) {
+      } else if (Objects.equals(split[0], username) && DateTime.now().isAfter(expiry)) {
         //token is expired, generate a new one
         userDao.setUserConfig(username, new UserConfig(encrypter.encrypt(utils.generateTokenForUser(username, config.getTtl()))));
       }
