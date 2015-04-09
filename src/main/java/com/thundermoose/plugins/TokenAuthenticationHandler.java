@@ -82,8 +82,9 @@ public class TokenAuthenticationHandler implements HttpAuthenticationHandler {
         return false;
       }
 
-      DateTime expiry = new DateTime(Long.parseLong(split[1])).plusDays(adminDao.getAdminConfig().getTtl());
-      if (Objects.equals(split[0], username) && DateTime.now().isBefore(expiry)) {
+      Integer ttl = adminDao.getAdminConfig().getTtl();
+      DateTime expiry = new DateTime(Long.parseLong(split[1])).plusDays(ttl);
+      if (Objects.equals(split[0], username) && (ttl <= 0 || DateTime.now().isBefore(expiry))) {
         //token is valid, see if the path is allowed token access by admin
         return new PathMatcher(
             config.getAdminPaths(),
