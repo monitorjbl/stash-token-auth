@@ -89,7 +89,7 @@ public class TokenAuthenticationHandler implements HttpAuthenticationHandler {
             config.getAdminPaths(),
             config.getProjectPaths(),
             config.getRepoPaths()
-        ).pathAllowed(path);
+        ).pathAllowed(path) && Objects.equals(userDao.getUserConfig(username).getToken(), token);
       } else if (Objects.equals(split[0], username) && DateTime.now().isAfter(expiry)) {
         //token is expired, generate a new one
         userDao.setUserConfig(username, new UserConfig(encrypter.encrypt(utils.generateTokenForUser(username, config.getTtl()))));
