@@ -31,11 +31,20 @@ public class RepoPaths implements Paths {
   @Matches({"/rest/api/1.0/projects/*/repos/*/pull-requests/**"})
   private boolean pullRequests;
 
-  public RepoPaths(boolean permissions, boolean commitHistory, boolean files, boolean pullRequests) {
+  @XmlElement
+  @Matches({
+      "/rest/branch-permissions/1.0/projects/*/repos/*/permitted",
+      "/rest/branch-permissions/1.0/projects/*/repos/*/restricted",
+      "/rest/branch-permissions/1.0/projects/*/repos/*/restricted/*"
+  })
+  private boolean branchPermissions;
+
+  public RepoPaths(boolean permissions, boolean commitHistory, boolean files, boolean pullRequests, boolean branchPermissions) {
     this.permissions = permissions;
     this.commitHistory = commitHistory;
     this.files = files;
     this.pullRequests = pullRequests;
+    this.branchPermissions = branchPermissions;
   }
 
   public RepoPaths() {
@@ -72,4 +81,12 @@ public class RepoPaths implements Paths {
   public void setPullRequests(boolean pullRequests) {
     this.pullRequests = pullRequests;
   }
+
+    public boolean getBranchPermissions() {
+        return branchPermissions;
+    }
+
+    public void setBranchPermissions(boolean branchPermissions) {
+        this.branchPermissions = branchPermissions;
+    }
 }

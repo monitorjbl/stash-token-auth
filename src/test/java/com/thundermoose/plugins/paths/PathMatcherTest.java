@@ -63,4 +63,16 @@ public class PathMatcherTest {
     assertTrue(sut.pathAllowed("/rest/api/1.0/admin/groups/add-user"));
   }
 
+  @Test
+  public void testBranchPermissionsPaths() {
+    RepoPaths repoPaths = new RepoPaths();
+    repoPaths.setBranchPermissions(true);
+
+    PathMatcher sut = new PathMatcher(repoPaths);
+
+    assertTrue(sut.pathAllowed("/rest/branch-permissions/1.0/projects/ABC/repos/XYZ/restricted"));
+    assertTrue(sut.pathAllowed("/rest/branch-permissions/1.0/projects/ABC/repos/XYZ/restricted/42"));
+    assertTrue(sut.pathAllowed("/rest/branch-permissions/1.0/projects/ABC/repos/XYZ/permitted"));
+  }
+
 }
