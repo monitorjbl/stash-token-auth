@@ -116,7 +116,7 @@
                         <input type="checkbox" id="repo.branchPermissions" name="repo.branchPermissions" value="true">
                         <label for="admin.groups">$i18n.getText("admin.paths.repo.branchPermissions.label")</label>
 
-                        <div class="description">$i18n.getText("admin.paths.repo.branchPermissions.description")</div>
+                        <div class="description">#set($messageHtml = $i18n.getText("admin.paths.repo.branchPermissions.description"))$messageHtml</div>
                     </div>
                     <div class="checkbox">
                         <input type="checkbox" id="repo.buildStatus" name="repo.buildStatus" value="true">
