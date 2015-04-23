@@ -75,4 +75,15 @@ public class PathMatcherTest {
     assertTrue(sut.pathAllowed("/rest/branch-permissions/1.0/projects/ABC/repos/XYZ/permitted"));
   }
 
+  @Test
+  public void testBuildStatusPaths() {
+    RepoPaths repoPaths = new RepoPaths();
+    repoPaths.setBuildStatus(true);
+
+    PathMatcher sut = new PathMatcher(repoPaths);
+
+    assertTrue(sut.pathAllowed("/rest/build-status/1.0/commits/stats"));
+    assertTrue(sut.pathAllowed("/rest/build-status/1.0/commits/stats/dsf89h2fsdf"));
+    assertTrue(sut.pathAllowed("/rest/build-status/1.0/commits/8sd9jcsadfsdf"));
+  }
 }

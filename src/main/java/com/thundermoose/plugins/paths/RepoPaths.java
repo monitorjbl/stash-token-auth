@@ -39,12 +39,17 @@ public class RepoPaths implements Paths {
   })
   private boolean branchPermissions;
 
-  public RepoPaths(boolean permissions, boolean commitHistory, boolean files, boolean pullRequests, boolean branchPermissions) {
+  @XmlElement
+  @Matches({"/rest/build-status/1.0/commits/**"})
+  private boolean buildStatus;
+
+  public RepoPaths(boolean permissions, boolean commitHistory, boolean files, boolean pullRequests, boolean branchPermissions, boolean buildStatus) {
     this.permissions = permissions;
     this.commitHistory = commitHistory;
     this.files = files;
     this.pullRequests = pullRequests;
     this.branchPermissions = branchPermissions;
+    this.buildStatus = buildStatus;
   }
 
   public RepoPaths() {
@@ -82,11 +87,19 @@ public class RepoPaths implements Paths {
     this.pullRequests = pullRequests;
   }
 
-    public boolean getBranchPermissions() {
-        return branchPermissions;
-    }
+  public boolean getBranchPermissions() {
+    return branchPermissions;
+  }
 
-    public void setBranchPermissions(boolean branchPermissions) {
-        this.branchPermissions = branchPermissions;
-    }
+  public void setBranchPermissions(boolean branchPermissions) {
+    this.branchPermissions = branchPermissions;
+  }
+
+  public boolean getBuildStatus() {
+    return buildStatus;
+  }
+
+  public void setBuildStatus(boolean buildStatus) {
+    this.buildStatus = buildStatus;
+  }
 }

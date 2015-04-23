@@ -39,7 +39,7 @@ public class AdminConfigDao {
       config.setProjectPaths(new ProjectPaths(true, true));
     }
     if (config.getRepoPaths() == null) {
-      config.setRepoPaths(new RepoPaths(true, true, true, true, true));
+      config.setRepoPaths(new RepoPaths(true, true, true, true, true, true));
     }
     setAdminConfig(config);
   }
@@ -82,7 +82,8 @@ public class AdminConfigDao {
                 BooleanUtils.toBoolean((String) settings.get(repoCommitHistory)),
                 BooleanUtils.toBoolean((String) settings.get(repoFiles)),
                 BooleanUtils.toBoolean((String) settings.get(repoPullRequests)),
-                BooleanUtils.toBoolean((String) settings.get(repoBranchPermissions))
+                BooleanUtils.toBoolean((String) settings.get(repoBranchPermissions)),
+                BooleanUtils.toBoolean((String) settings.get(buildStatus))
             ));
           }
 
@@ -121,6 +122,7 @@ public class AdminConfigDao {
           settings.put(repoFiles, BooleanUtils.toStringTrueFalse(config.getRepoPaths().getFiles()));
           settings.put(repoPullRequests, BooleanUtils.toStringTrueFalse(config.getRepoPaths().getPullRequests()));
           settings.put(repoBranchPermissions, BooleanUtils.toStringTrueFalse(config.getRepoPaths().getBranchPermissions()));
+          settings.put(buildStatus, BooleanUtils.toStringTrueFalse(config.getRepoPaths().getBuildStatus()));
         }
 
         setCache(config);
@@ -152,4 +154,5 @@ public class AdminConfigDao {
   public static final String repoFiles = repoPathPrefix + ".files";
   public static final String repoPullRequests = repoPathPrefix + ".pullRequests";
   public static final String repoBranchPermissions = repoPathPrefix + ".branchPermissions";
+  public static final String buildStatus = repoPathPrefix + ".buildStatus";
 }
