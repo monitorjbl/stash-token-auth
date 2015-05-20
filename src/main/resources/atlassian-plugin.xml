@@ -49,12 +49,12 @@
     <description>Provides REST resources for the admin UI.</description>
   </rest>
 
-  <web-item key="account-plugin-tab" name="Account navigation tab" section="stash.user.account.nav" weight="100">
+  <web-item key="account-token-tab" name="Account navigation tab" section="stash.user.account.nav" weight="100">
     <label>Token</label>
     <link>/plugins/servlet/auth-token/user</link>
     <tooltip>Token-based Authentication</tooltip>
   </web-item>
-  <web-item key="refapp-menu-item" name="XProduct Admin" section="atl.admin/admin-settings-section" weight="10">
+  <web-item key="admin-token-tab" name="Plugin configuration tab" section="atl.admin/admin-settings-section" weight="10">
     <description>Link to xproduct-admin page.</description>
     <label>Token authentication</label>
     <link>/plugins/servlet/auth-token/admin</link>
