@@ -51,7 +51,7 @@ public class TokenAuthenticationHandlerTest{
     adminConfig.setEnabled(true);
     adminConfig.setKey(new KeyGenerator().generateKey());
     adminConfig.setAdminPaths(new AdminPaths(true, true, true, true));
-    adminConfig.setProjectPaths(new ProjectPaths(true, true));
+    adminConfig.setProjectPaths(new ProjectPaths(true, true, true));
     adminConfig.setRepoPaths(new RepoPaths(true, true, true, true, true, true));
   }
 

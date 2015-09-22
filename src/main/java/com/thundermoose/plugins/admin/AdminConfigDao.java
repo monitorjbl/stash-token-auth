@@ -23,22 +23,22 @@ public class AdminConfigDao {
 
   private void setDefaults() {
     AdminConfig config = getAdminConfig();
-    if (config.getEnabled() == null) {
+    if(config.getEnabled() == null) {
       config.setEnabled(true);
     }
-    if (config.getKey() == null) {
+    if(config.getKey() == null) {
       config.setKey(new KeyGenerator().generateKey());
     }
-    if (config.getTtl() == null) {
+    if(config.getTtl() == null) {
       config.setTtl(30);
     }
-    if (config.getAdminPaths() == null) {
+    if(config.getAdminPaths() == null) {
       config.setAdminPaths(new AdminPaths(true, true, true, true));
     }
-    if (config.getProjectPaths() == null) {
-      config.setProjectPaths(new ProjectPaths(true, true));
+    if(config.getProjectPaths() == null) {
+      config.setProjectPaths(new ProjectPaths(true, true, true));
     }
-    if (config.getRepoPaths() == null) {
+    if(config.getRepoPaths() == null) {
       config.setRepoPaths(new RepoPaths(true, true, true, true, true, true));
     }
     setAdminConfig(config);
@@ -46,7 +46,7 @@ public class AdminConfigDao {
 
   public AdminConfig getAdminConfig() {
     AdminConfig config = getCache();
-    if (config != null) {
+    if(config != null) {
       return config;
     } else {
       return transactionTemplate.execute(new TransactionCallback<AdminConfig>() {
@@ -56,11 +56,11 @@ public class AdminConfigDao {
           config.setEnabled(BooleanUtils.toBoolean((String) settings.get(BASE + ".enabled")));
           config.setKey((String) settings.get(BASE + ".key"));
           String ttl = (String) settings.get(BASE + ".ttl");
-          if (ttl != null) {
+          if(ttl != null) {
             config.setTtl(Integer.valueOf(ttl));
           }
 
-          if (settings.get(adminPathPrefix) != null) {
+          if(settings.get(adminPathPrefix) != null) {
             config.setAdminPaths(new AdminPaths(
                 BooleanUtils.toBoolean((String) settings.get(adminPermissions)),
                 BooleanUtils.toBoolean((String) settings.get(adminUsers)),
@@ -69,14 +69,15 @@ public class AdminConfigDao {
             ));
           }
 
-          if (settings.get(projectPathPrefix) != null) {
+          if(settings.get(projectPathPrefix) != null) {
             config.setProjectPaths(new ProjectPaths(
+                BooleanUtils.toBoolean((String) settings.get(projectList)),
                 BooleanUtils.toBoolean((String) settings.get(projectPermissions)),
                 BooleanUtils.toBoolean((String) settings.get(projectRepoList))
             ));
           }
 
-          if (settings.get(repoPathPrefix) != null) {
+          if(settings.get(repoPathPrefix) != null) {
             config.setRepoPaths(new RepoPaths(
                 BooleanUtils.toBoolean((String) settings.get(repoPermissions)),
                 BooleanUtils.toBoolean((String) settings.get(repoCommitHistory)),
@@ -101,7 +102,7 @@ public class AdminConfigDao {
         settings.put(BASE + ".ttl", Integer.toString(config.getTtl()));
         settings.put(BASE + ".key", config.getKey());
 
-        if (config.getAdminPaths() != null) {
+        if(config.getAdminPaths() != null) {
           settings.put(adminPathPrefix, "true");
           settings.put(adminPermissions, BooleanUtils.toStringTrueFalse(config.getAdminPaths().getPermissions()));
           settings.put(adminUsers, BooleanUtils.toStringTrueFalse(config.getAdminPaths().getUsers()));
@@ -109,13 +110,14 @@ public class AdminConfigDao {
           settings.put(adminLogs, BooleanUtils.toStringTrueFalse(config.getAdminPaths().getLogs()));
         }
 
-        if (config.getProjectPaths() != null) {
+        if(config.getProjectPaths() != null) {
           settings.put(projectPathPrefix, "true");
+          settings.put(projectList, BooleanUtils.toStringTrueFalse(config.getProjectPaths().getProjectList()));
           settings.put(projectPermissions, BooleanUtils.toStringTrueFalse(config.getProjectPaths().getPermissions()));
           settings.put(projectRepoList, BooleanUtils.toStringTrueFalse(config.getProjectPaths().getRepoList()));
         }
 
-        if (config.getRepoPaths() != null) {
+        if(config.getRepoPaths() != null) {
           settings.put(repoPathPrefix, "true");
           settings.put(repoPermissions, BooleanUtils.toStringTrueFalse(config.getRepoPaths().getPermissions()));
           settings.put(repoCommitHistory, BooleanUtils.toStringTrueFalse(config.getRepoPaths().getCommitHistory()));
@@ -146,6 +148,7 @@ public class AdminConfigDao {
   public static final String adminGroups = adminPathPrefix + ".groups";
   public static final String adminLogs = adminPathPrefix + ".logs";
   public static final String projectPathPrefix = ".projectPaths";
+  public static final String projectList = projectPathPrefix + ".projectList";
   public static final String projectPermissions = projectPathPrefix + ".permissions";
   public static final String projectRepoList = projectPathPrefix + ".repoList";
   public static final String repoPathPrefix = BASE + ".repoPaths";

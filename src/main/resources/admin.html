@@ -1,139 +1,151 @@
 <html>
 <head>
-    <title>$i18n.getText("admin.title")</title>
-    <meta name="decorator" content="atl.admin"/>
-    $webResourceManager.requireResource("com.thundermoose.plugins.stash-token-auth:resources")
-    <meta name="application-base-url" content="$applicationProperties.getBaseUrl()">
-    <meta name="activeTab" content="admin-token-tab">
+  <title>$i18n.getText("admin.title")</title>
+  <meta name="decorator" content="atl.admin"/>
+  $webResourceManager.requireResource("com.thundermoose.plugins.stash-token-auth:resources")
+  <meta name="application-base-url" content="$applicationProperties.getBaseUrl()">
+  <meta name="activeTab" content="admin-token-tab">
 
-    <script>
-        AJS.toInit(function () {
-            adminInit();
-        });
-    </script>
+  <script>
+    AJS.toInit(function () {
+      adminInit();
+    });
+  </script>
+
+  <style>
+    form#admin div.description {
+      margin-left: 20px;
+    }
+  </style>
 </head>
 <body>
 <h2>$i18n.getText("admin.label")</h2>
 
 <form id="admin" class="aui">
-    <div class="field-group">
-        <label for="key">$i18n.getText("admin.key.label")</label>
-        <input class="text" type="text" id="key" name="key">
-        <span id="keyGenButton" class="aui-button add-button">$i18n.getText("admin.key.button.label")</span>
+  <div class="field-group">
+    <label for="key">$i18n.getText("admin.key.label")</label>
+    <input class="text" type="text" id="key" name="key">
+    <span id="keyGenButton" class="aui-button add-button">$i18n.getText("admin.key.button.label")</span>
 
-        <div class="description">$i18n.getText("admin.key.description")</div>
+    <div class="description">$i18n.getText("admin.key.description")</div>
+  </div>
+  <div class="field-group">
+    <label for="ttl">$i18n.getText("admin.ttl.label")</label>
+    <input class="text short-field" type="text" id="ttl" name="ttl" maxlength="4">
+
+    <div class="description">$i18n.getText("admin.ttl.description")</div>
+  </div>
+  <fieldset class="group checkbox">
+    <div class="checkbox">
+      <input type="checkbox" id="enabled" name="enabled" value="true">
+      <label for="enabled">$i18n.getText("admin.enabled.label")</label>
+
+      <div class="description">$i18n.getText("admin.enabled.description")</div>
     </div>
-    <div class="field-group">
-        <label for="ttl">$i18n.getText("admin.ttl.label")</label>
-        <input class="text short-field" type="text" id="ttl" name="ttl" maxlength="4">
+  </fieldset>
+  <label for="paths">$i18n.getText("admin.paths.label")</label>
+  <fieldset id="paths" class="group checkbox">
+    <table class="aui">
+      <thead>
+      <tr>
+        <th>Admin</th>
+        <th>Projects</th>
+        <th>Repos</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>
+          <div class="checkbox">
+            <input type="checkbox" id="admin.permissions" name="admin.permissions" value="true">
+            <label for="admin.permissions">$i18n.getText("admin.paths.admin.permissions.label")</label>
 
-        <div class="description">$i18n.getText("admin.ttl.description")</div>
-    </div>
-    <fieldset class="group checkbox">
-        <div class="checkbox">
-            <input type="checkbox" id="enabled" name="enabled" value="true">
-            <label for="enabled">$i18n.getText("admin.enabled.label")</label>
+            <div class="description">$i18n.getText("admin.paths.admin.permissions.description")</div>
+          </div>
+          <div class="checkbox">
+            <input type="checkbox" id="admin.groups" name="admin.groups" value="true">
+            <label for="admin.groups">$i18n.getText("admin.paths.admin.groups.label")</label>
 
-            <div class="description">$i18n.getText("admin.enabled.description")</div>
-        </div>
-    </fieldset>
-    <label for="paths">$i18n.getText("admin.paths.label")</label>
-    <fieldset id="paths" class="group checkbox">
-        <table class="aui">
-            <thead>
-            <tr>
-                <th>Admin</th>
-                <th>Projects</th>
-                <th>Repos</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>
-                    <div class="checkbox">
-                        <input type="checkbox" id="admin.permissions" name="admin.permissions" value="true">
-                        <label for="admin.permissions">$i18n.getText("admin.paths.admin.permissions.label")</label>
+            <div class="description">$i18n.getText("admin.paths.admin.groups.description")</div>
+          </div>
+          <div class="checkbox">
+            <input type="checkbox" id="admin.users" name="admin.users" value="true">
+            <label for="admin.users">$i18n.getText("admin.paths.admin.users.label")</label>
 
-                        <div class="description">$i18n.getText("admin.paths.admin.permissions.description")</div>
-                    </div>
-                    <div class="checkbox">
-                        <input type="checkbox" id="admin.groups" name="admin.groups" value="true">
-                        <label for="admin.groups">$i18n.getText("admin.paths.admin.groups.label")</label>
+            <div class="description">$i18n.getText("admin.paths.admin.users.description")</div>
+          </div>
+          <div class="checkbox">
+            <input type="checkbox" id="admin.logs" name="admin.logs" value="true">
+            <label for="admin.logs">$i18n.getText("admin.paths.admin.logs.label")</label>
 
-                        <div class="description">$i18n.getText("admin.paths.admin.groups.description")</div>
-                    </div>
-                    <div class="checkbox">
-                        <input type="checkbox" id="admin.users" name="admin.users" value="true">
-                        <label for="admin.groups">$i18n.getText("admin.paths.admin.users.label")</label>
+            <div class="description">#set($messageHtml = $i18n.getText('admin.paths.admin.logs.description'))$messageHtml</div>
+          </div>
+        </td>
+        <td>
+          <div class="checkbox">
+            <input type="checkbox" id="project.projectList" name="project.projectList" value="true">
+            <label for="project.projectList">$i18n.getText("admin.paths.project.projectList.label")</label>
 
-                        <div class="description">$i18n.getText("admin.paths.admin.users.description")</div>
-                    </div>
-                    <div class="checkbox">
-                        <input type="checkbox" id="admin.logs" name="admin.logs" value="true">
-                        <label for="admin.groups">$i18n.getText("admin.paths.admin.logs.label")</label>
+            <div class="description">$i18n.getText("admin.paths.project.projectList.description")</div>
+          </div>
+          <div class="checkbox">
+            <input type="checkbox" id="project.permissions" name="project.permissions" value="true">
+            <label for="project.permissions">$i18n.getText("admin.paths.project.permissions.label")</label>
 
-                        <div class="description">#set($messageHtml = $i18n.getText('admin.paths.admin.logs.description'))$messageHtml</div>
-                    </div>
-                </td>
-                <td>
-                    <div class="checkbox">
-                        <input type="checkbox" id="project.permissions" name="project.permissions" value="true">
-                        <label for="admin.groups">$i18n.getText("admin.paths.project.permissions.label")</label>
+            <div class="description">$i18n.getText("admin.paths.project.permissions.description")</div>
+          </div>
+          <div class="checkbox">
+            <input type="checkbox" id="project.repoList" name="project.repoList" value="true">
+            <label for="project.repoList">$i18n.getText("admin.paths.project.repoList.label")</label>
 
-                        <div class="description">$i18n.getText("admin.paths.project.permissions.description")</div>
-                    </div>
-                    <div class="checkbox">
-                        <input type="checkbox" id="project.repos" name="project.repoList" value="true">
-                        <label for="admin.groups">$i18n.getText("admin.paths.project.repoList.label")</label>
+            <div class="description">$i18n.getText("admin.paths.project.repoList.description")</div>
+          </div>
+        </td>
+        <td>
+          <div class="checkbox">
+            <input type="checkbox" id="repo.permissions" name="repo.permissions" value="true">
+            <label for="repo.permissions">$i18n.getText("admin.paths.repo.permissions.label")</label>
 
-                        <div class="description">$i18n.getText("admin.paths.project.repoList.description")</div>
-                    </div>
-                </td>
-                <td>
-                    <div class="checkbox">
-                        <input type="checkbox" id="repo.permissions" name="repo.permissions" value="true">
-                        <label for="admin.groups">$i18n.getText("admin.paths.repo.permissions.label")</label>
+            <div class="description">$i18n.getText("admin.paths.repo.permissions.description")</div>
+          </div>
+          <div class="checkbox">
+            <input type="checkbox" id="repo.commits" name="repo.commitHistory" value="true">
+            <label for="repo.commits">$i18n.getText("admin.paths.repo.commitHistory.label")</label>
 
-                        <div class="description">$i18n.getText("admin.paths.repo.permissions.description")</div>
-                    </div>
-                    <div class="checkbox">
-                        <input type="checkbox" id="repo.commits" name="repo.commitHistory" value="true">
-                        <label for="admin.groups">$i18n.getText("admin.paths.repo.commitHistory.label")</label>
+            <div class="description">#set($messageHtml = $i18n.getText('admin.paths.repo.commitHistory.description'))$messageHtml</div>
+          </div>
+          <div class="checkbox">
+            <input type="checkbox" id="repo.files" name="repo.files" value="true">
+            <label for="repo.files">$i18n.getText("admin.paths.repo.files.label")</label>
 
-                        <div class="description">#set($messageHtml = $i18n.getText('admin.paths.repo.commitHistory.description'))$messageHtml</div>
-                    </div>
-                    <div class="checkbox">
-                        <input type="checkbox" id="repo.files" name="repo.files" value="true">
-                        <label for="admin.groups">$i18n.getText("admin.paths.repo.files.label")</label>
+            <div class="description">#set($messageHtml = $i18n.getText('admin.paths.repo.files.description'))$messageHtml</div>
+          </div>
+          <div class="checkbox">
+            <input type="checkbox" id="repo.pullRequests" name="repo.pullRequests" value="true">
+            <label for="repo.pullRequests">$i18n.getText("admin.paths.repo.pullRequests.label")</label>
 
-                        <div class="description">#set($messageHtml = $i18n.getText('admin.paths.repo.files.description'))$messageHtml</div>
-                    </div>
-                    <div class="checkbox">
-                        <input type="checkbox" id="repo.pullRequests" name="repo.pullRequests" value="true">
-                        <label for="admin.groups">$i18n.getText("admin.paths.repo.pullRequests.label")</label>
+            <div class="description">$i18n.getText("admin.paths.repo.pullRequests.description")</div>
+          </div>
+          <div class="checkbox">
+            <input type="checkbox" id="repo.branchPermissions" name="repo.branchPermissions" value="true">
+            <label for="repo.branchPermissions">$i18n.getText("admin.paths.repo.branchPermissions.label")</label>
 
-                        <div class="description">$i18n.getText("admin.paths.repo.pullRequests.description")</div>
-                    </div>
-                    <div class="checkbox">
-                        <input type="checkbox" id="repo.branchPermissions" name="repo.branchPermissions" value="true">
-                        <label for="admin.groups">$i18n.getText("admin.paths.repo.branchPermissions.label")</label>
+            <div class="description">#set($messageHtml = $i18n.getText("admin.paths.repo.branchPermissions.description"))$messageHtml</div>
+          </div>
+          <div class="checkbox">
+            <input type="checkbox" id="repo.buildStatus" name="repo.buildStatus" value="true">
+            <label for="repo.buildStatus">$i18n.getText("admin.paths.repo.buildStatus.label")</label>
 
-                        <div class="description">#set($messageHtml = $i18n.getText("admin.paths.repo.branchPermissions.description"))$messageHtml</div>
-                    </div>
-                    <div class="checkbox">
-                        <input type="checkbox" id="repo.buildStatus" name="repo.buildStatus" value="true">
-                        <label for="admin.groups">$i18n.getText("admin.paths.repo.buildStatus.label")</label>
-
-                        <div class="description">$i18n.getText("admin.paths.repo.buildStatus.description")</div>
-                    </div>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </fieldset>
-    <div class="field-group">
-        <input type="submit" value="$i18n.getText('admin.save.label')" class="button">
-    </div>
+            <div class="description">$i18n.getText("admin.paths.repo.buildStatus.description")</div>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </fieldset>
+  <div class="field-group">
+    <input type="submit" value="$i18n.getText('admin.save.label')" class="button">
+  </div>
 </form>
 </body>
 </html>

@@ -9,6 +9,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ProjectPaths implements Paths {
   @XmlElement
+  @Matches({"/rest/api/1.0/projects"})
+  private boolean projectList;
+  @XmlElement
   @Matches({"/rest/api/1.0/projects/*/permissions/**"})
   private boolean permissions;
   @XmlElement
@@ -18,9 +21,18 @@ public class ProjectPaths implements Paths {
   public ProjectPaths() {
   }
 
-  public ProjectPaths(boolean permissions, boolean repoList) {
+  public ProjectPaths(boolean projectList, boolean permissions, boolean repoList) {
+    this.projectList = projectList;
     this.permissions = permissions;
     this.repoList = repoList;
+  }
+
+  public boolean getProjectList() {
+    return projectList;
+  }
+
+  public void setProjectList(boolean projectList) {
+    this.projectList = projectList;
   }
 
   public boolean getPermissions() {
@@ -38,4 +50,5 @@ public class ProjectPaths implements Paths {
   public void setRepoList(boolean repoList) {
     this.repoList = repoList;
   }
+
 }
