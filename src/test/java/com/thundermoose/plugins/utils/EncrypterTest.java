@@ -1,7 +1,8 @@
 package com.thundermoose.plugins.utils;
 
-import org.apache.commons.codec.binary.Base64;
 import org.junit.Test;
+
+import java.util.Base64;
 
 import static org.junit.Assert.assertEquals;
 
@@ -10,7 +11,7 @@ public class EncrypterTest {
   @Test
   public void testEncrpytion() throws Exception {
     String key = new KeyGenerator().generateKey();
-    Encrypter e = new Encrypter(Base64.decodeBase64(key));
+    Encrypter e = new Encrypter(Base64.getDecoder().decode(key));
 
     System.out.println(key);
     String str = "Ticket to ride";

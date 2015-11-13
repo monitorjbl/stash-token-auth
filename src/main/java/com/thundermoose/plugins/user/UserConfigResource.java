@@ -5,7 +5,6 @@ import com.atlassian.sal.api.user.UserProfile;
 import com.thundermoose.plugins.admin.AdminConfigDao;
 import com.thundermoose.plugins.utils.Encrypter;
 import com.thundermoose.plugins.utils.Utils;
-import org.apache.commons.codec.binary.Base64;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
@@ -14,6 +13,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.Base64;
 
 @Path("/user")
 public class UserConfigResource {
@@ -54,7 +54,7 @@ public class UserConfigResource {
   }
 
   private String generateEncryptedToken(String username) {
-    Encrypter encrypter = new Encrypter(Base64.decodeBase64(adminDao.getAdminConfig().getKey()));
+    Encrypter encrypter = new Encrypter(Base64.getDecoder().decode(adminDao.getAdminConfig().getKey()));
     return encrypter.encrypt(utils.generateTokenForUser(username, adminDao.getAdminConfig().getTtl()));
   }
 

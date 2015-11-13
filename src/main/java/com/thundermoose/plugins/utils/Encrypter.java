@@ -1,7 +1,5 @@
 package com.thundermoose.plugins.utils;
 
-import org.apache.commons.codec.binary.Base64;
-
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
@@ -11,6 +9,7 @@ import javax.crypto.spec.SecretKeySpec;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 
 public class Encrypter {
   private Cipher ecipher;
@@ -34,7 +33,7 @@ public class Encrypter {
     try {
       byte[] utf8 = value.getBytes("UTF8");
       byte[] enc = ecipher.doFinal(utf8);
-      return new String(Base64.encodeBase64(enc));
+      return new String(Base64.getEncoder().encode(enc));
     } catch (UnsupportedEncodingException | BadPaddingException | IllegalBlockSizeException e) {
       throw new EncryptionException("Could not encrypt string", e);
     }
@@ -42,7 +41,7 @@ public class Encrypter {
 
   public String decrypt(String value) throws EncryptionException {
     try {
-      byte[] dec = Base64.decodeBase64(value.getBytes());
+      byte[] dec = Base64.getDecoder().decode(value.getBytes());
       byte[] utf8 = dcipher.doFinal(dec);
       return new String(utf8, "UTF8");
     } catch (UnsupportedEncodingException | BadPaddingException | IllegalBlockSizeException e) {

@@ -1,12 +1,12 @@
 package com.thundermoose.plugins.utils;
 
 import com.atlassian.sal.api.auth.LoginUriProvider;
-import org.joda.time.DateTime;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.UUID;
 
 public class Utils {
@@ -22,7 +22,7 @@ public class Utils {
 
   public URI getUri(HttpServletRequest request) {
     StringBuffer builder = request.getRequestURL();
-    if (request.getQueryString() != null) {
+    if(request.getQueryString() != null) {
       builder.append("?");
       builder.append(request.getQueryString());
     }
@@ -43,20 +43,20 @@ public class Utils {
    * @return
    */
   public String generateTokenForUser(String username, Integer ttl) {
-    return username + ":" + System.currentTimeMillis() + ":" + DateTime.now().plusDays(ttl).getMillis() + ":" + UUID.randomUUID().toString();
+    return username + ":" + System.currentTimeMillis() + ":" + ZonedDateTime.now().plusDays(ttl).toInstant().toEpochMilli() + ":" + UUID.randomUUID().toString();
   }
 
   public static String createRegexFromGlob(String line) {
-    if (line.endsWith("**")) {
+    if(line.endsWith("**")) {
       String chopped = line.substring(0, line.length() - 2);
-      if (!chopped.endsWith("/")) {
+      if(!chopped.endsWith("/")) {
         throw new IllegalArgumentException("Glob operator must be preceeded by a '/' character");
       }
       String single = regexWildcard(escapeRegexCharacters(chopped.substring(0, chopped.length() - 1)));
       return regexWildcard(escapeRegexCharacters(chopped)) + ".*|" + single;
     } else {
       //can't support globs that aren't at the end, make sure there aren't any
-      if (line.replaceAll("(\\*\\*)", "").length() != line.length()) {
+      if(line.replaceAll("(\\*\\*)", "").length() != line.length()) {
         throw new IllegalArgumentException("Glob operator (**) can only be at the end of a path");
       }
       return regexWildcard(escapeRegexCharacters(line));
