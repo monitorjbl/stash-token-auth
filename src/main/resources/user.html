@@ -1,28 +1,29 @@
 <html>
 <head>
-    <title>$i18n.getText("user.title")</title>
-    <meta name="decorator" content="bitbucket.users.account"/>
-    $webResourceManager.requireResource("com.thundermoose.plugins.stash-token-auth:resources")
-    <meta name="application-base-url" content="$applicationProperties.getBaseUrl()">
-    <meta name="activeTab" content="account-plugin-tab">
+  <title>$i18n.getText("user.title")</title>
+  <meta name="decorator" content="bitbucket.users.account"/>
+  $webResourceManager.requireResource("com.thundermoose.plugins.stash-token-auth:resources")
+  <meta name="application-base-url" content="$applicationProperties.getBaseUrl()">
+  <meta name="activeTab" content="account-plugin-tab">
 
-    <script>
-        AJS.toInit(function () {
-            userInit();
-        });
-    </script>
+  <script>
+    AJS.toInit(function () {
+      userInit();
+    });
+  </script>
 </head>
 <body>
 <h2>$i18n.getText("user.label")</h2>
 
 <form id="user" class="aui">
-    <div class="field-group">
-        <label for="ttl">$i18n.getText("user.token.label")</label>
-        <span id="keyGenButton" class="aui-button add-button">$i18n.getText("user.token.button.label")</span>
-        <textarea class="textarea" type="text" id="token" name="token" rows="6" disabled></textarea>
+  <div class="field-group">
+    <label for="ttl">$i18n.getText("user.token.label")</label>
+    <span id="keyGenButton" class="aui-button add-button">$i18n.getText("user.token.button.label")</span>
+    <br/>
+    <textarea class="textarea" type="text" id="token" name="token" rows="6" disabled></textarea>
 
-        <div class="description">$i18n.getText("user.token.description")</div>
-    </div>
+    <div class="description">$i18n.getText("user.token.description")</div>
+  </div>
 </form>
 </body>
 </html>
