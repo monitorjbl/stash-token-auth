@@ -1,0 +1,8 @@
+language: java
+
+jdk:
+   - oraclejdk8
+install:
+   - mvn clean install -DskipTests -B -s settings.xml
+script:
+   - mvn clean package -B -s settings.xml
