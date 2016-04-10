@@ -1,3 +1,5 @@
+[![Run Status](https://api.shippable.com/projects/55cfbb00edd7f2c052a980af/badge?branch=master)](https://app.shippable.com/projects/55cfbb00edd7f2c052a980af)
+
 # Token-based Auth Plugin for Stash
 
 ![Key](/src/main/resources/images/pluginIcon.png?raw=true)
