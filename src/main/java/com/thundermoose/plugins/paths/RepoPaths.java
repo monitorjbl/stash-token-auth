@@ -35,7 +35,9 @@ public class RepoPaths implements Paths {
   @Matches({
       "/rest/branch-permissions/1.0/projects/*/repos/*/permitted",
       "/rest/branch-permissions/1.0/projects/*/repos/*/restricted",
-      "/rest/branch-permissions/1.0/projects/*/repos/*/restricted/*"
+      "/rest/branch-permissions/1.0/projects/*/repos/*/restricted/*",
+      "/rest/branch-permissions/2.0/projects/*/repos/*/restrictions",
+      "/rest/branch-permissions/2.0/projects/*/repos/*/restrictions/*"
   })
   private boolean branchPermissions;
 
