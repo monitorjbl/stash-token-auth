@@ -86,4 +86,15 @@ public class PathMatcherTest {
     assertTrue(sut.pathAllowed("/rest/build-status/1.0/commits/stats/dsf89h2fsdf"));
     assertTrue(sut.pathAllowed("/rest/build-status/1.0/commits/8sd9jcsadfsdf"));
   }
+
+  @Test
+  public void testBaseDetails() {
+    RepoPaths repoPaths = new RepoPaths();
+    repoPaths.setBaseDetails(true);
+
+    PathMatcher sut = new PathMatcher(repoPaths);
+
+    assertTrue(sut.pathAllowed("/rest/api/1.0/projects/PROJECT/repos/REPOSITORY"));
+    assertTrue(sut.pathAllowed("/rest/api/1.0/projects/PROJECT_ANOTHER/repos/REPOSITORY_ANOTHER"));
+  }
 }
