@@ -29,17 +29,17 @@ curl  -H "X-Auth-User:admin" \
 
 All requests must include authentication.
 
-# /rest/auth-token/1.0/user
+### `[GET] /rest/auth-token/1.0/user`
 
 Fetches a user's username and token.
 
-# /rest/auth-token/1.0/user/regenerate-token
+### `[GET] /rest/auth-token/1.0/user/regenerate-token`
 
 Regenerates a user's token.
 
-# /rest/auth-token/1.0/admin
+### `[GET, PUT] /rest/auth-token/1.0/admin`
 
-Fetches the admin details.
+Fetches and updates the admin details.
 
 ## UI Elements
 
