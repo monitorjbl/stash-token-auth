@@ -25,6 +25,22 @@ curl  -H "X-Auth-User:admin" \
 
 ```
 
+## Extra REST APIs
+
+All requests must include authentication.
+
+### `[GET] /rest/auth-token/1.0/user`
+
+Fetches a user's username and token.
+
+### `[GET] /rest/auth-token/1.0/user/regenerate-token`
+
+Regenerates a user's token.
+
+### `[GET, PUT] /rest/auth-token/1.0/admin`
+
+Fetches and updates the admin details.
+
 ## UI Elements
 
 ### Administration config
