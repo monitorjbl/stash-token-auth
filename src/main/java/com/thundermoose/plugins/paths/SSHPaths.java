@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class SSHPaths implements Paths {
   @XmlElement
   @Matches({"/rest/ssh/1.0/keys/**"})
-  private boolean userkeys;
+  private boolean userKeys;
   @XmlElement
   @Matches({
     "/rest/keys/1.0/ssh/**",
@@ -18,29 +18,29 @@ public class SSHPaths implements Paths {
     "/rest/keys/1.0/projects/*/ssh",
     "/rest/keys/1.0/projects/*/ssh/**"
   })
-  private boolean repokeys;
+  private boolean repoKeys;
 
-  public SSHPaths(boolean userkeys, boolean repokeys) {
-    this.userkeys = userkeys;
-    this.repokeys = repokeys;
+  public SSHPaths(boolean userKeys, boolean repoKeys) {
+    this.userKeys = userKeys;
+    this.repoKeys = repoKeys;
   }
 
   public SSHPaths() {
   }
 
   public boolean getUserKeys() {
-    return userkeys;
+    return userKeys;
   }
 
-  public void setUserKeys(boolean userkeys) {
-    this.userkeys = userkeys;
+  public void setUserKeys(boolean userKeys) {
+    this.userKeys = userKeys;
   }
 
   public boolean getRepoKeys() {
-    return repokeys;
+    return repoKeys;
   }
 
-  public void setRepoKeys(boolean repokeys) {
-    this.repokeys = repokeys;
+  public void setRepoKeys(boolean repoKeys) {
+    this.repoKeys = repoKeys;
   }
 }

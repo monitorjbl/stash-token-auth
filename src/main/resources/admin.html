@@ -151,7 +151,7 @@
             <input type="checkbox" id="ssh.userKeys" name="ssh.userKeys" value="true">
             <label for="ssh.userKeys">$i18n.getText("admin.paths.ssh.userKeys.label")</label>
 
-            <div class="description">$i18n.getText("admin.paths.ssh.userKeys.description")</div>
+            <div class="description">#set($messageHtml = $i18n.getText('admin.paths.ssh.userKeys.description'))$messageHtml</div>
           </div>
           <div class="checkbox">
             <input type="checkbox" id="ssh.repoKeys" name="ssh.repoKeys" value="true">
