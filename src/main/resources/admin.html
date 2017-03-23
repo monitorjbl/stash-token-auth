@@ -51,6 +51,7 @@
         <th>Admin</th>
         <th>Projects</th>
         <th>Repos</th>
+        <th>SSH</th>
       </tr>
       </thead>
       <tbody>
@@ -143,6 +144,20 @@
             <label for="repo.baseDetails">$i18n.getText("admin.paths.repo.baseDetails.label")</label>
 
             <div class="description">$i18n.getText("admin.paths.repo.baseDetails.description")</div>
+          </div>
+        </td>
+        <td>
+          <div class="checkbox">
+            <input type="checkbox" id="ssh.userKeys" name="ssh.userKeys" value="true">
+            <label for="ssh.userKeys">$i18n.getText("admin.paths.ssh.userKeys.label")</label>
+
+            <div class="description">$i18n.getText("admin.paths.ssh.userKeys.description")</div>
+          </div>
+          <div class="checkbox">
+            <input type="checkbox" id="ssh.repoKeys" name="ssh.repoKeys" value="true">
+            <label for="ssh.repoKeys">$i18n.getText("admin.paths.ssh.repoKeys.label")</label>
+
+            <div class="description">#set($messageHtml = $i18n.getText('admin.paths.ssh.repoKeys.description'))$messageHtml</div>
           </div>
         </td>
       </tr>

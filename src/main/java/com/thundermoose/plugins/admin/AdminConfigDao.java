@@ -41,6 +41,9 @@ public class AdminConfigDao {
     if(config.getRepoPaths() == null) {
       config.setRepoPaths(new RepoPaths(true, true, true, true, true, true, true));
     }
+    if(config.getSSHPaths() == null) {
+      config.getSSHPaths(new SSHPaths(true, true));
+    }
     setAdminConfig(config);
   }
 
@@ -84,8 +87,15 @@ public class AdminConfigDao {
                 BooleanUtils.toBoolean((String) settings.get(repoFiles)),
                 BooleanUtils.toBoolean((String) settings.get(repoPullRequests)),
                 BooleanUtils.toBoolean((String) settings.get(repoBranchPermissions)),
-                BooleanUtils.toBoolean((String) settings.get(buildStatus)),
-                BooleanUtils.toBoolean((String) settings.get(baseDetails))
+                BooleanUtils.toBoolean((String) settings.get(repoBuildStatus)),
+                BooleanUtils.toBoolean((String) settings.get(repoBaseDetails))
+            ));
+          }
+
+          if(settings.get(sshPathPrefix) != null) {
+            config.setSSHPaths(new SSHPaths(
+                BooleanUtils.toBoolean((String) settings.get(sshUserKeys)),
+                BooleanUtils.toBoolean((String) settings.get(sshRepoKeys)),
             ));
           }
 
@@ -125,8 +135,14 @@ public class AdminConfigDao {
           settings.put(repoFiles, BooleanUtils.toStringTrueFalse(config.getRepoPaths().getFiles()));
           settings.put(repoPullRequests, BooleanUtils.toStringTrueFalse(config.getRepoPaths().getPullRequests()));
           settings.put(repoBranchPermissions, BooleanUtils.toStringTrueFalse(config.getRepoPaths().getBranchPermissions()));
-          settings.put(buildStatus, BooleanUtils.toStringTrueFalse(config.getRepoPaths().getBuildStatus()));
-          settings.put(baseDetails, BooleanUtils.toStringTrueFalse(config.getRepoPaths().getBaseDetails()));
+          settings.put(repoBuildStatus, BooleanUtils.toStringTrueFalse(config.getRepoPaths().getBuildStatus()));
+          settings.put(repoBaseDetails, BooleanUtils.toStringTrueFalse(config.getRepoPaths().getBaseDetails()));
+        }
+
+        if(config.getSSHPaths() != null) {
+          settings.put(sshPathPrefix, "true");
+          settings.put(sshUserKeys, BooleanUtils.toStringTrueFalse(config.getSSHPaths().getUserKeys()));
+          settings.put(sshRepoKeys, BooleanUtils.toStringTrueFalse(config.getSSHPaths().getRepoKeys()));
         }
 
         setCache(config);
@@ -144,21 +160,28 @@ public class AdminConfigDao {
   }
 
   public static final String BASE = AdminConfig.class.getName();
+
   public static final String adminPathPrefix = BASE + ".adminPaths";
   public static final String adminPermissions = adminPathPrefix + ".permissions";
   public static final String adminUsers = adminPathPrefix + ".users";
   public static final String adminGroups = adminPathPrefix + ".groups";
   public static final String adminLogs = adminPathPrefix + ".logs";
+
   public static final String projectPathPrefix = ".projectPaths";
   public static final String projectList = projectPathPrefix + ".projectList";
   public static final String projectPermissions = projectPathPrefix + ".permissions";
   public static final String projectRepoList = projectPathPrefix + ".repoList";
+
   public static final String repoPathPrefix = BASE + ".repoPaths";
   public static final String repoPermissions = repoPathPrefix + ".permissions";
   public static final String repoCommitHistory = repoPathPrefix + ".commitHistory";
   public static final String repoFiles = repoPathPrefix + ".files";
   public static final String repoPullRequests = repoPathPrefix + ".pullRequests";
   public static final String repoBranchPermissions = repoPathPrefix + ".branchPermissions";
-  public static final String buildStatus = repoPathPrefix + ".buildStatus";
-  public static final String baseDetails = repoPathPrefix + ".baseDetails";
+  public static final String repoBuildStatus = repoPathPrefix + ".buildStatus";
+  public static final String repoBaseDetails = repoPathPrefix + ".baseDetails";
+
+  public static final String sshPathPrefix = BASE + ".sshPaths";
+  public static final String sshUserKeys = sshPathPrefix + ".userKeys";
+  public static final String sshRepoKeys = sshPathPrefix + ".repoKeys";
 }
