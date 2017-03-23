@@ -9,10 +9,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class SSHPaths implements Paths {
   @XmlElement
-  @Matches({"/rest/keys/1.0/ssh/**"})
+  @Matches({"/rest/ssh/1.0/keys/**"})
   private boolean userkeys;
   @XmlElement
-  @Matches({"/rest/ssh/1.0/keys/**"})
+  @Matches({
+    "/rest/keys/1.0/ssh/**",
+    "/rest/keys/1.0/projects/*/repos/**",
+    "/rest/keys/1.0/projects/*/ssh",
+    "/rest/keys/1.0/projects/*/ssh/**"
+  })
   private boolean repokeys;
 
   public SSHPaths(boolean userkeys, boolean repokeys) {

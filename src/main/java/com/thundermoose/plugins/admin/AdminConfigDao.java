@@ -7,6 +7,7 @@ import com.atlassian.sal.api.transaction.TransactionTemplate;
 import com.thundermoose.plugins.paths.AdminPaths;
 import com.thundermoose.plugins.paths.ProjectPaths;
 import com.thundermoose.plugins.paths.RepoPaths;
+import com.thundermoose.plugins.paths.SSHPaths;
 import com.thundermoose.plugins.utils.KeyGenerator;
 import org.apache.commons.lang3.BooleanUtils;
 
@@ -42,7 +43,7 @@ public class AdminConfigDao {
       config.setRepoPaths(new RepoPaths(true, true, true, true, true, true, true));
     }
     if(config.getSSHPaths() == null) {
-      config.getSSHPaths(new SSHPaths(true, true));
+      config.setSSHPaths(new SSHPaths(true, true));
     }
     setAdminConfig(config);
   }
@@ -95,7 +96,7 @@ public class AdminConfigDao {
           if(settings.get(sshPathPrefix) != null) {
             config.setSSHPaths(new SSHPaths(
                 BooleanUtils.toBoolean((String) settings.get(sshUserKeys)),
-                BooleanUtils.toBoolean((String) settings.get(sshRepoKeys)),
+                BooleanUtils.toBoolean((String) settings.get(sshRepoKeys))
             ));
           }
 

@@ -116,14 +116,14 @@ public class PathMatcherTest {
 
     PathMatcher sut = new PathMatcher(sshPaths);
 
-    assertTrue(sut.pathAllowed("/rest/keys/1.0//ssh/KEY_ID"));
-    assertTrue(sut.pathAllowed("/rest/keys/1.0//ssh/KEY_ID/projects"));
-    assertTrue(sut.pathAllowed("/rest/keys/1.0//ssh/KEY_ID/repos"));
-    assertTrue(sut.pathAllowed("/rest/keys/1.0//projects/PROJECT_KEY/repos/REPO_SLUG/ssh"));
-    assertTrue(sut.pathAllowed("/rest/keys/1.0//projects/PROJECT_KEY/repos/REPO_SLUG/ssh/KEY_ID"));
-    assertTrue(sut.pathAllowed("/rest/keys/1.0//projects/PROJECT_KEY/repos/REPO_SLUG/ssh/KEY_ID/permission/{permission}"));
-    assertTrue(sut.pathAllowed("/rest/keys/1.0//projects/PROJECT_KEY/ssh"));
-    assertTrue(sut.pathAllowed("/rest/keys/1.0//projects/PROJECT_KEY/ssh/KEY_ID"));
-    assertTrue(sut.pathAllowed("/rest/keys/1.0//projects/PROJECT_KEY/ssh/KEY_ID/permission/{permission}"));
+    assertTrue(sut.pathAllowed("/rest/keys/1.0/ssh/KEY_ID"));
+    assertTrue(sut.pathAllowed("/rest/keys/1.0/ssh/KEY_ID/projects"));
+    assertTrue(sut.pathAllowed("/rest/keys/1.0/ssh/KEY_ID/repos"));
+    assertTrue(sut.pathAllowed("/rest/keys/1.0/projects/PROJECT_KEY/repos/REPO_SLUG/ssh"));
+    assertTrue(sut.pathAllowed("/rest/keys/1.0/projects/PROJECT_KEY/repos/REPO_SLUG/ssh/KEY_ID"));
+    assertTrue(sut.pathAllowed("/rest/keys/1.0/projects/PROJECT_KEY/repos/REPO_SLUG/ssh/KEY_ID/permission/{permission}"));
+    assertTrue(sut.pathAllowed("/rest/keys/1.0/projects/PROJECT_KEY/ssh"));
+    assertTrue(sut.pathAllowed("/rest/keys/1.0/projects/PROJECT_KEY/ssh/KEY_ID"));
+    assertTrue(sut.pathAllowed("/rest/keys/1.0/projects/PROJECT_KEY/ssh/KEY_ID/permission/{permission}"));
   }
 }
