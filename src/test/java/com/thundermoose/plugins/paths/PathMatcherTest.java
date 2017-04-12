@@ -97,4 +97,33 @@ public class PathMatcherTest {
     assertTrue(sut.pathAllowed("/rest/api/1.0/projects/PROJECT/repos/REPOSITORY"));
     assertTrue(sut.pathAllowed("/rest/api/1.0/projects/PROJECT_ANOTHER/repos/REPOSITORY_ANOTHER"));
   }
+
+  @Test
+  public void testUserKeys() {
+    SSHPaths sshPaths = new SSHPaths();
+    sshPaths.setUserKeys(true);
+
+    PathMatcher sut = new PathMatcher(sshPaths);
+
+    assertTrue(sut.pathAllowed("/rest/ssh/1.0/keys"));
+    assertTrue(sut.pathAllowed("/rest/ssh/1.0/keys/KEY_ID"));
+  }
+
+  @Test
+  public void testRepoKeys() {
+    SSHPaths sshPaths = new SSHPaths();
+    sshPaths.setRepoKeys(true);
+
+    PathMatcher sut = new PathMatcher(sshPaths);
+
+    assertTrue(sut.pathAllowed("/rest/keys/1.0/ssh/KEY_ID"));
+    assertTrue(sut.pathAllowed("/rest/keys/1.0/ssh/KEY_ID/projects"));
+    assertTrue(sut.pathAllowed("/rest/keys/1.0/ssh/KEY_ID/repos"));
+    assertTrue(sut.pathAllowed("/rest/keys/1.0/projects/PROJECT_KEY/repos/REPO_SLUG/ssh"));
+    assertTrue(sut.pathAllowed("/rest/keys/1.0/projects/PROJECT_KEY/repos/REPO_SLUG/ssh/KEY_ID"));
+    assertTrue(sut.pathAllowed("/rest/keys/1.0/projects/PROJECT_KEY/repos/REPO_SLUG/ssh/KEY_ID/permission/{permission}"));
+    assertTrue(sut.pathAllowed("/rest/keys/1.0/projects/PROJECT_KEY/ssh"));
+    assertTrue(sut.pathAllowed("/rest/keys/1.0/projects/PROJECT_KEY/ssh/KEY_ID"));
+    assertTrue(sut.pathAllowed("/rest/keys/1.0/projects/PROJECT_KEY/ssh/KEY_ID/permission/{permission}"));
+  }
 }

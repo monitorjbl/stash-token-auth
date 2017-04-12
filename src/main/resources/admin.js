@@ -14,6 +14,7 @@ var adminInit = function () {
         applyPathConfig(config, "admin");
         applyPathConfig(config, "repo");
         applyPathConfig(config, "project");
+        applyPathConfig(config, "ssh");
       }
     });
   }
@@ -58,6 +59,7 @@ var adminInit = function () {
     readPathConfig(config, "admin");
     readPathConfig(config, "project");
     readPathConfig(config, "repo");
+    readPathConfig(config, "ssh");
 
     console.log(config);
     $.ajax({

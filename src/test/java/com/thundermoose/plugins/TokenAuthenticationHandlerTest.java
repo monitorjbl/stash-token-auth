@@ -7,6 +7,7 @@ import com.thundermoose.plugins.admin.AdminConfigDao;
 import com.thundermoose.plugins.paths.AdminPaths;
 import com.thundermoose.plugins.paths.ProjectPaths;
 import com.thundermoose.plugins.paths.RepoPaths;
+import com.thundermoose.plugins.paths.SSHPaths;
 import com.thundermoose.plugins.user.UserConfig;
 import com.thundermoose.plugins.user.UserConfigDao;
 import com.thundermoose.plugins.utils.Encrypter;
@@ -55,6 +56,7 @@ public class TokenAuthenticationHandlerTest {
     adminConfig.setAdminPaths(new AdminPaths(true, true, true, true));
     adminConfig.setProjectPaths(new ProjectPaths(true, true, true));
     adminConfig.setRepoPaths(new RepoPaths(true, true, true, true, true, true, true));
+    adminConfig.setSSHPaths(new SSHPaths(true, true));
   }
 
   @Test
