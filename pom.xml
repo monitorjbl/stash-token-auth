@@ -6,7 +6,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.thundermoose.plugins</groupId>
   <artifactId>stash-token-auth</artifactId>
-  <version>2.1</version>
+  <version>2.2</version>
   <packaging>atlassian-plugin</packaging>
 
   <name>Token Authenticator</name>
