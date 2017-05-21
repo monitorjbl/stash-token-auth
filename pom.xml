@@ -44,11 +44,6 @@
       <artifactId>bitbucket-spi</artifactId>
       <scope>provided</scope>
     </dependency>
-    <!--<dependency>-->
-      <!--<groupId>com.atlassian.stash</groupId>-->
-      <!--<artifactId>stash-page-objects</artifactId>-->
-      <!--<scope>provided</scope>-->
-    <!--</dependency>-->
     <dependency>
       <groupId>com.atlassian.templaterenderer</groupId>
       <artifactId>atlassian-template-renderer-api</artifactId>
@@ -130,9 +125,9 @@
   </build>
 
   <properties>
-    <bitbucket.version>4.0.2</bitbucket.version>
-    <bitbucket.data.version>4.0.2</bitbucket.data.version>
-    <amps.version>6.1.0</amps.version>
+    <bitbucket.version>5.0.1</bitbucket.version>
+    <bitbucket.data.version>5.0.1</bitbucket.data.version>
+    <amps.version>6.3.0</amps.version>
     <plugin.testrunner.version>1.2.3</plugin.testrunner.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
