@@ -30,6 +30,11 @@ public class PathMatcher {
           }
         }
       }
+
+      // Allow the "archive plugin" to use tokens.
+      String regex = Utils.createRegexFromGlob("/rest/archive/**");
+      paths.put(regex, new PathInfo(true, Pattern.compile(regex)));
+
     } catch (IllegalAccessException e) {
       throw new RuntimeException(e);
     }
