@@ -64,6 +64,26 @@ public class PathMatcherTest {
   }
 
   @Test
+  public void testParticipantsPaths() {
+    RepoPaths repoPaths = new RepoPaths();
+    repoPaths.setParticipants(true);
+
+    PathMatcher sut = new PathMatcher(repoPaths);
+
+    assertTrue(sut.pathAllowed("/rest/api/1.0/projects/PROJECT/repos/REPOSITORY/participants"));
+  }
+
+  @Test
+  public void testDisallowedParticipantsPaths() {
+    RepoPaths repoPaths = new RepoPaths();
+    repoPaths.setParticipants(false);
+
+    PathMatcher sut = new PathMatcher(repoPaths);
+
+    assertFalse(sut.pathAllowed("/rest/api/1.0/projects/PROJECT/repos/REPOSITORY/participants"));
+  }
+
+  @Test
   public void testBranchPermissionsPaths() {
     RepoPaths repoPaths = new RepoPaths();
     repoPaths.setBranchPermissions(true);

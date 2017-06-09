@@ -40,7 +40,7 @@ public class AdminConfigDao {
       config.setProjectPaths(new ProjectPaths(true, true, true));
     }
     if(config.getRepoPaths() == null) {
-      config.setRepoPaths(new RepoPaths(true, true, true, true, true, true, true));
+      config.setRepoPaths(new RepoPaths(true, true, true, true, true, true, true, true));
     }
     if(config.getSSHPaths() == null) {
       config.setSSHPaths(new SSHPaths(true, true));
@@ -87,6 +87,7 @@ public class AdminConfigDao {
                 BooleanUtils.toBoolean((String) settings.get(repoCommitHistory)),
                 BooleanUtils.toBoolean((String) settings.get(repoFiles)),
                 BooleanUtils.toBoolean((String) settings.get(repoPullRequests)),
+                BooleanUtils.toBoolean((String) settings.get(repoParticipants)),
                 BooleanUtils.toBoolean((String) settings.get(repoBranchPermissions)),
                 BooleanUtils.toBoolean((String) settings.get(repoBuildStatus)),
                 BooleanUtils.toBoolean((String) settings.get(repoBaseDetails))
@@ -135,6 +136,7 @@ public class AdminConfigDao {
           settings.put(repoCommitHistory, BooleanUtils.toStringTrueFalse(config.getRepoPaths().getCommitHistory()));
           settings.put(repoFiles, BooleanUtils.toStringTrueFalse(config.getRepoPaths().getFiles()));
           settings.put(repoPullRequests, BooleanUtils.toStringTrueFalse(config.getRepoPaths().getPullRequests()));
+          settings.put(repoParticipants, BooleanUtils.toStringTrueFalse(config.getRepoPaths().getParticipants()));
           settings.put(repoBranchPermissions, BooleanUtils.toStringTrueFalse(config.getRepoPaths().getBranchPermissions()));
           settings.put(repoBuildStatus, BooleanUtils.toStringTrueFalse(config.getRepoPaths().getBuildStatus()));
           settings.put(repoBaseDetails, BooleanUtils.toStringTrueFalse(config.getRepoPaths().getBaseDetails()));
@@ -178,6 +180,7 @@ public class AdminConfigDao {
   public static final String repoCommitHistory = repoPathPrefix + ".commitHistory";
   public static final String repoFiles = repoPathPrefix + ".files";
   public static final String repoPullRequests = repoPathPrefix + ".pullRequests";
+  public static final String repoParticipants = repoPathPrefix + ".participants";
   public static final String repoBranchPermissions = repoPathPrefix + ".branchPermissions";
   public static final String repoBuildStatus = repoPathPrefix + ".buildStatus";
   public static final String repoBaseDetails = repoPathPrefix + ".baseDetails";
