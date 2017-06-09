@@ -128,6 +128,12 @@
             <div class="description">$i18n.getText("admin.paths.repo.pullRequests.description")</div>
           </div>
           <div class="checkbox">
+            <input type="checkbox" id="repo.participants" name="repo.participants" value="true">
+            <label for="repo.participants">$i18n.getText("admin.paths.repo.participants.label")</label>
+
+            <div class="description">#set($messageHtml = $i18n.getText("admin.paths.repo.participants.description"))$messageHtml</div>
+          </div>
+          <div class="checkbox">
             <input type="checkbox" id="repo.branchPermissions" name="repo.branchPermissions" value="true">
             <label for="repo.branchPermissions">$i18n.getText("admin.paths.repo.branchPermissions.label")</label>
 
