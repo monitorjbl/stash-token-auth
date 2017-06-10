@@ -34,7 +34,7 @@ public class AdminConfigDao {
       config.setTtl(30);
     }
     if(config.getAdminPaths() == null) {
-      config.setAdminPaths(new AdminPaths(true, true, true, true, false, false, false));
+      config.setAdminPaths(new AdminPaths(true, true, true, true, false, false, false, false));
     }
     if(config.getProjectPaths() == null) {
       config.setProjectPaths(new ProjectPaths(true, true, true));
@@ -72,7 +72,8 @@ public class AdminConfigDao {
                 BooleanUtils.toBoolean((String) settings.get(adminLogs)),
                 BooleanUtils.toBoolean((String) settings.get(adminAllRestApi)),
                 BooleanUtils.toBoolean((String) settings.get(adminAllBranchUtilsApi)),
-                BooleanUtils.toBoolean((String) settings.get(adminAllKeysApi))
+                BooleanUtils.toBoolean((String) settings.get(adminAllKeysApi)),
+                BooleanUtils.toBoolean((String) settings.get(adminAllDefaultReviewersApi))
             ));
           }
 
@@ -127,6 +128,7 @@ public class AdminConfigDao {
           settings.put(adminAllRestApi, BooleanUtils.toStringTrueFalse(config.getAdminPaths().getAllRestApi()));
           settings.put(adminAllBranchUtilsApi, BooleanUtils.toStringTrueFalse(config.getAdminPaths().getAllBranchUtilsApi()));
           settings.put(adminAllKeysApi, BooleanUtils.toStringTrueFalse(config.getAdminPaths().getAllKeysApi()));
+          settings.put(adminAllDefaultReviewersApi, BooleanUtils.toStringTrueFalse(config.getAdminPaths().getAllDefaultReviewersApi()));
         }
 
         if(config.getProjectPaths() != null) {
@@ -178,6 +180,7 @@ public class AdminConfigDao {
   public static final String adminAllRestApi = adminPathPrefix + ".allRestApi";
   public static final String adminAllBranchUtilsApi = adminPathPrefix + ".allBranchUtilsApi";
   public static final String adminAllKeysApi = adminPathPrefix + ".allKeysApi";
+  public static final String adminAllDefaultReviewersApi = adminPathPrefix + ".allDefaultReviewersApi";
 
   public static final String projectPathPrefix = ".projectPaths";
   public static final String projectList = projectPathPrefix + ".projectList";

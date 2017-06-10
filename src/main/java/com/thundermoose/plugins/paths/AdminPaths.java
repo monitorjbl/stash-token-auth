@@ -29,8 +29,11 @@ public class AdminPaths implements Paths {
   @XmlElement
   @Matches({"/rest/keys/1.0/**"})
   private boolean allKeysApi;
+  @XmlElement
+  @Matches({"/rest/default-reviewers/1.0/**"})
+  private boolean allDefaultReviewersApi;
 
-  public AdminPaths(boolean permissions, boolean users, boolean groups, boolean logs, boolean allRestApi, boolean allBranchUtilsApi, boolean  allKeysApi) {
+  public AdminPaths(boolean permissions, boolean users, boolean groups, boolean logs, boolean allRestApi, boolean allBranchUtilsApi, boolean  allKeysApi, boolean allDefaultReviewersApi) {
     this.permissions = permissions;
     this.users = users;
     this.groups = groups;
@@ -38,6 +41,7 @@ public class AdminPaths implements Paths {
     this.allRestApi = allRestApi;
     this.allBranchUtilsApi = allBranchUtilsApi;
     this.allKeysApi = allKeysApi;
+    this.allDefaultReviewersApi = allDefaultReviewersApi;
   }
 
   public AdminPaths() {
@@ -97,5 +101,13 @@ public class AdminPaths implements Paths {
 
   public void setAllKeysApi(boolean allKeysApi) {
     this.allKeysApi = allKeysApi;
+  }
+
+  public boolean getAllDefaultReviewersApi() {
+    return allDefaultReviewersApi;
+  }
+
+  public void setAllDefaultReviewersApi(boolean allDefaultReviewersApi) {
+    this.allDefaultReviewersApi = allDefaultReviewersApi;
   }
 }
