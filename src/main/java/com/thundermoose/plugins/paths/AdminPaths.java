@@ -26,14 +26,18 @@ public class AdminPaths implements Paths {
   @XmlElement
   @Matches({"/rest/branch-utils/1.0/**"})
   private boolean allBranchUtilsApi;
+  @XmlElement
+  @Matches({"/rest/keys/1.0/**"})
+  private boolean allKeysApi;
 
-  public AdminPaths(boolean permissions, boolean users, boolean groups, boolean logs, boolean allRestApi, boolean allBranchUtilsApi) {
+  public AdminPaths(boolean permissions, boolean users, boolean groups, boolean logs, boolean allRestApi, boolean allBranchUtilsApi, boolean  allKeysApi) {
     this.permissions = permissions;
     this.users = users;
     this.groups = groups;
     this.logs = logs;
     this.allRestApi = allRestApi;
     this.allBranchUtilsApi = allBranchUtilsApi;
+    this.allKeysApi = allKeysApi;
   }
 
   public AdminPaths() {
@@ -85,5 +89,13 @@ public class AdminPaths implements Paths {
 
   public void setAllBranchUtilsApi(boolean allBranchUtilsApi) {
     this.allBranchUtilsApi = allBranchUtilsApi;
+  }
+
+  public boolean getAllKeysApi() {
+    return allKeysApi;
+  }
+
+  public void setAllKeysApi(boolean allKeysApi) {
+    this.allKeysApi = allKeysApi;
   }
 }
