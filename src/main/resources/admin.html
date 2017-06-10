@@ -81,6 +81,18 @@
 
             <div class="description">#set($messageHtml = $i18n.getText('admin.paths.admin.logs.description'))$messageHtml</div>
           </div>
+          <div class="checkbox">
+            <input type="checkbox" id="admin.allRestApi" name="admin.allRestApi" value="true">
+            <label for="admin.allRestApi">$i18n.getText("admin.paths.admin.allRestApi.label")</label>
+
+            <div class="description">$i18n.getText("admin.paths.admin.allRestApi.description")</div>
+          </div>
+          <div class="checkbox">
+            <input type="checkbox" id="admin.allBranchUtilsApi" name="admin.allBranchUtilsApi" value="true">
+            <label for="admin.allBranchUtilsApi">$i18n.getText("admin.paths.admin.allBranchUtilsApi.label")</label>
+
+            <div class="description">$i18n.getText("admin.paths.admin.allBranchUtilsApi.description")</div>
+          </div>
         </td>
         <td>
           <div class="checkbox">

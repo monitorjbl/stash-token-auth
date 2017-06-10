@@ -20,12 +20,20 @@ public class AdminPaths implements Paths {
   @XmlElement
   @Matches({"/rest/api/1.0/admin/logs/**"})
   private boolean logs;
+  @XmlElement
+  @Matches({"/rest/api/1.0/**"})
+  private boolean allRestApi;
+  @XmlElement
+  @Matches({"/rest/branch-utils/1.0/**"})
+  private boolean allBranchUtilsApi;
 
-  public AdminPaths(boolean permissions, boolean users, boolean groups, boolean logs) {
+  public AdminPaths(boolean permissions, boolean users, boolean groups, boolean logs, boolean allRestApi, boolean allBranchUtilsApi) {
     this.permissions = permissions;
     this.users = users;
     this.groups = groups;
     this.logs = logs;
+    this.allRestApi = allRestApi;
+    this.allBranchUtilsApi = allBranchUtilsApi;
   }
 
   public AdminPaths() {
@@ -61,5 +69,21 @@ public class AdminPaths implements Paths {
 
   public void setLogs(boolean logs) {
     this.logs = logs;
+  }
+
+  public boolean getAllRestApi() {
+    return allRestApi;
+  }
+
+  public void setAllRestApi(boolean allRestApi) {
+    this.allRestApi = allRestApi;
+  }
+
+  public boolean getAllBranchUtilsApi() {
+    return allBranchUtilsApi;
+  }
+
+  public void setAllBranchUtilsApi(boolean allBranchUtilsApi) {
+    this.allBranchUtilsApi = allBranchUtilsApi;
   }
 }
