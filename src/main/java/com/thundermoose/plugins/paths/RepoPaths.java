@@ -23,6 +23,7 @@ public class RepoPaths implements Paths {
   private boolean commitHistory;
   @XmlElement
   @Matches({
+      "/rest/api/1.0/projects/*/repos/*/archive/**",
       "/rest/api/1.0/projects/*/repos/*/browse/**",
       "/rest/api/1.0/projects/*/repos/*/files/**"
   })
