@@ -40,7 +40,7 @@ public class AdminConfigDao {
       config.setProjectPaths(new ProjectPaths(true, true, true));
     }
     if(config.getRepoPaths() == null) {
-      config.setRepoPaths(new RepoPaths(true, true, true, true, true, true, true, true));
+      config.setRepoPaths(new RepoPaths(true, true, true, true, true, true, true, true, true));
     }
     if(config.getSSHPaths() == null) {
       config.setSSHPaths(new SSHPaths(true, true));
@@ -95,7 +95,8 @@ public class AdminConfigDao {
                 BooleanUtils.toBoolean((String) settings.get(repoParticipants)),
                 BooleanUtils.toBoolean((String) settings.get(repoBranchPermissions)),
                 BooleanUtils.toBoolean((String) settings.get(repoBuildStatus)),
-                BooleanUtils.toBoolean((String) settings.get(repoBaseDetails))
+                BooleanUtils.toBoolean((String) settings.get(repoBaseDetails)),
+                BooleanUtils.toBoolean((String) settings.get(repoSync))
             ));
           }
 
@@ -199,6 +200,7 @@ public class AdminConfigDao {
   public static final String repoBranchPermissions = repoPathPrefix + ".branchPermissions";
   public static final String repoBuildStatus = repoPathPrefix + ".buildStatus";
   public static final String repoBaseDetails = repoPathPrefix + ".baseDetails";
+  public static final String repoSync = repoPathPrefix + ".sync";
 
   public static final String sshPathPrefix = BASE + ".sshPaths";
   public static final String sshUserKeys = sshPathPrefix + ".userKeys";

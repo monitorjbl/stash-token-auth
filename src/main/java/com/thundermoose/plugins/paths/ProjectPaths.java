@@ -18,8 +18,7 @@ public class ProjectPaths implements Paths {
   @Matches({"/rest/api/1.0/projects/*/repos"})
   private boolean repoList;
 
-  public ProjectPaths() {
-  }
+  public ProjectPaths() { }
 
   public ProjectPaths(boolean projectList, boolean permissions, boolean repoList) {
     this.projectList = projectList;

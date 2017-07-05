@@ -13,10 +13,10 @@ public class SSHPaths implements Paths {
   private boolean userKeys;
   @XmlElement
   @Matches({
-    "/rest/keys/1.0/ssh/**",
-    "/rest/keys/1.0/projects/*/repos/**",
-    "/rest/keys/1.0/projects/*/ssh",
-    "/rest/keys/1.0/projects/*/ssh/**"
+      "/rest/keys/1.0/ssh/**",
+      "/rest/keys/1.0/projects/*/repos/**",
+      "/rest/keys/1.0/projects/*/ssh",
+      "/rest/keys/1.0/projects/*/ssh/**"
   })
   private boolean repoKeys;
 
@@ -25,8 +25,7 @@ public class SSHPaths implements Paths {
     this.repoKeys = repoKeys;
   }
 
-  public SSHPaths() {
-  }
+  public SSHPaths() { }
 
   public boolean getUserKeys() {
     return userKeys;

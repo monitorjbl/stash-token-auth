@@ -53,7 +53,12 @@ public class RepoPaths implements Paths {
   @Matches({"/rest/api/1.0/projects/*/repos/*"})
   private boolean baseDetails;
 
-  public RepoPaths(boolean permissions, boolean commitHistory, boolean files, boolean pullRequests, boolean participants, boolean branchPermissions, boolean buildStatus, boolean baseDetails) {
+  @XmlElement
+  @Matches({"/rest/sync/1.0/projects/*/repos/**"})
+  private boolean sync;
+
+  public RepoPaths(boolean permissions, boolean commitHistory, boolean files, boolean pullRequests, boolean participants,
+                   boolean branchPermissions, boolean buildStatus, boolean baseDetails, boolean sync) {
     this.permissions = permissions;
     this.commitHistory = commitHistory;
     this.files = files;
@@ -62,10 +67,10 @@ public class RepoPaths implements Paths {
     this.branchPermissions = branchPermissions;
     this.buildStatus = buildStatus;
     this.baseDetails = baseDetails;
+    this.sync = sync;
   }
 
-  public RepoPaths() {
-  }
+  public RepoPaths() { }
 
   public boolean getPermissions() {
     return permissions;
@@ -129,5 +134,13 @@ public class RepoPaths implements Paths {
 
   public void setBaseDetails(boolean baseDetails) {
     this.baseDetails = baseDetails;
+  }
+
+  public boolean getSync() {
+    return sync;
+  }
+
+  public void setSync(boolean sync) {
+    this.sync = sync;
   }
 }

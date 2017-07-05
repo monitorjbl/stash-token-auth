@@ -48,8 +48,7 @@ public class AdminPaths implements Paths {
     this.allBranchPermissionsApi = allBranchPermissionsApi;
   }
 
-  public AdminPaths() {
-  }
+  public AdminPaths() { }
 
   public boolean getPermissions() {
     return permissions;
