@@ -14,7 +14,6 @@ import org.apache.commons.lang3.BooleanUtils;
 public class AdminConfigDao {
   private final PluginSettingsFactory pluginSettingsFactory;
   private final TransactionTemplate transactionTemplate;
-  private AdminConfig cachedConfig;
 
   public AdminConfigDao(PluginSettingsFactory pluginSettingsFactory, TransactionTemplate transactionTemplate) {
     this.pluginSettingsFactory = pluginSettingsFactory;
@@ -49,68 +48,63 @@ public class AdminConfigDao {
   }
 
   public AdminConfig getAdminConfig() {
-    AdminConfig config = getCache();
-    if(config != null) {
-      return config;
-    } else {
-      return transactionTemplate.execute(new TransactionCallback<AdminConfig>() {
-        public AdminConfig doInTransaction() {
-          PluginSettings settings = pluginSettingsFactory.createGlobalSettings();
-          AdminConfig config = new AdminConfig();
-          config.setEnabled(BooleanUtils.toBoolean((String) settings.get(BASE + ".enabled")));
-          config.setKey((String) settings.get(BASE + ".key"));
-          String ttl = (String) settings.get(BASE + ".ttl");
-          if(ttl != null) {
-            config.setTtl(Integer.valueOf(ttl));
-          }
-
-          if(settings.get(adminPathPrefix) != null) {
-            config.setAdminPaths(new AdminPaths(
-                BooleanUtils.toBoolean((String) settings.get(adminPermissions)),
-                BooleanUtils.toBoolean((String) settings.get(adminUsers)),
-                BooleanUtils.toBoolean((String) settings.get(adminGroups)),
-                BooleanUtils.toBoolean((String) settings.get(adminLogs)),
-                BooleanUtils.toBoolean((String) settings.get(adminAllRestApi)),
-                BooleanUtils.toBoolean((String) settings.get(adminAllBranchUtilsApi)),
-                BooleanUtils.toBoolean((String) settings.get(adminAllKeysApi)),
-                BooleanUtils.toBoolean((String) settings.get(adminAllDefaultReviewersApi)),
-                BooleanUtils.toBoolean((String) settings.get(adminAllBranchPermissionsApi))
-            ));
-          }
-
-          if(settings.get(projectPathPrefix) != null) {
-            config.setProjectPaths(new ProjectPaths(
-                BooleanUtils.toBoolean((String) settings.get(projectList)),
-                BooleanUtils.toBoolean((String) settings.get(projectPermissions)),
-                BooleanUtils.toBoolean((String) settings.get(projectRepoList))
-            ));
-          }
-
-          if(settings.get(repoPathPrefix) != null) {
-            config.setRepoPaths(new RepoPaths(
-                BooleanUtils.toBoolean((String) settings.get(repoPermissions)),
-                BooleanUtils.toBoolean((String) settings.get(repoCommitHistory)),
-                BooleanUtils.toBoolean((String) settings.get(repoFiles)),
-                BooleanUtils.toBoolean((String) settings.get(repoPullRequests)),
-                BooleanUtils.toBoolean((String) settings.get(repoParticipants)),
-                BooleanUtils.toBoolean((String) settings.get(repoBranchPermissions)),
-                BooleanUtils.toBoolean((String) settings.get(repoBuildStatus)),
-                BooleanUtils.toBoolean((String) settings.get(repoBaseDetails)),
-                BooleanUtils.toBoolean((String) settings.get(repoSync))
-            ));
-          }
-
-          if(settings.get(sshPathPrefix) != null) {
-            config.setSSHPaths(new SSHPaths(
-                BooleanUtils.toBoolean((String) settings.get(sshUserKeys)),
-                BooleanUtils.toBoolean((String) settings.get(sshRepoKeys))
-            ));
-          }
-
-          return config;
+    return transactionTemplate.execute(new TransactionCallback<AdminConfig>() {
+      public AdminConfig doInTransaction() {
+        PluginSettings settings = pluginSettingsFactory.createGlobalSettings();
+        AdminConfig config = new AdminConfig();
+        config.setEnabled(BooleanUtils.toBoolean((String) settings.get(BASE + ".enabled")));
+        config.setKey((String) settings.get(BASE + ".key"));
+        String ttl = (String) settings.get(BASE + ".ttl");
+        if(ttl != null) {
+          config.setTtl(Integer.valueOf(ttl));
         }
-      });
-    }
+
+        if(settings.get(adminPathPrefix) != null) {
+          config.setAdminPaths(new AdminPaths(
+              BooleanUtils.toBoolean((String) settings.get(adminPermissions)),
+              BooleanUtils.toBoolean((String) settings.get(adminUsers)),
+              BooleanUtils.toBoolean((String) settings.get(adminGroups)),
+              BooleanUtils.toBoolean((String) settings.get(adminLogs)),
+              BooleanUtils.toBoolean((String) settings.get(adminAllRestApi)),
+              BooleanUtils.toBoolean((String) settings.get(adminAllBranchUtilsApi)),
+              BooleanUtils.toBoolean((String) settings.get(adminAllKeysApi)),
+              BooleanUtils.toBoolean((String) settings.get(adminAllDefaultReviewersApi)),
+              BooleanUtils.toBoolean((String) settings.get(adminAllBranchPermissionsApi))
+          ));
+        }
+
+        if(settings.get(projectPathPrefix) != null) {
+          config.setProjectPaths(new ProjectPaths(
+              BooleanUtils.toBoolean((String) settings.get(projectList)),
+              BooleanUtils.toBoolean((String) settings.get(projectPermissions)),
+              BooleanUtils.toBoolean((String) settings.get(projectRepoList))
+          ));
+        }
+
+        if(settings.get(repoPathPrefix) != null) {
+          config.setRepoPaths(new RepoPaths(
+              BooleanUtils.toBoolean((String) settings.get(repoPermissions)),
+              BooleanUtils.toBoolean((String) settings.get(repoCommitHistory)),
+              BooleanUtils.toBoolean((String) settings.get(repoFiles)),
+              BooleanUtils.toBoolean((String) settings.get(repoPullRequests)),
+              BooleanUtils.toBoolean((String) settings.get(repoParticipants)),
+              BooleanUtils.toBoolean((String) settings.get(repoBranchPermissions)),
+              BooleanUtils.toBoolean((String) settings.get(repoBuildStatus)),
+              BooleanUtils.toBoolean((String) settings.get(repoBaseDetails)),
+              BooleanUtils.toBoolean((String) settings.get(repoSync))
+          ));
+        }
+
+        if(settings.get(sshPathPrefix) != null) {
+          config.setSSHPaths(new SSHPaths(
+              BooleanUtils.toBoolean((String) settings.get(sshUserKeys)),
+              BooleanUtils.toBoolean((String) settings.get(sshRepoKeys))
+          ));
+        }
+
+        return config;
+      }
+    });
   }
 
   public void setAdminConfig(final AdminConfig config) {
@@ -159,18 +153,9 @@ public class AdminConfigDao {
           settings.put(sshRepoKeys, BooleanUtils.toStringTrueFalse(config.getSSHPaths().getRepoKeys()));
         }
 
-        setCache(config);
         return config;
       }
     });
-  }
-
-  private synchronized void setCache(AdminConfig config) {
-    this.cachedConfig = config;
-  }
-
-  private synchronized AdminConfig getCache() {
-    return this.cachedConfig;
   }
 
   public static final String BASE = AdminConfig.class.getName();
